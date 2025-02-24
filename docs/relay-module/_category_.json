@@ -1,0 +1,8 @@
+{
+  "label": "Relay Module Development",
+  "position": 2,
+  "link": {
+    "type": "generated-index",
+    "description": "Creating a relay module module is a more intensive process than many would think. But we can think about it as what it says it is, a 'relay'. The relay takes XDR calls, translates them into the destination product's API calls, then translates the data received into what XDR is able to ingest."
+  }
+}
