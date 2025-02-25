@@ -41,12 +41,59 @@ const config = {
     [
       '@scalar/docusaurus',
       {
-        label: 'API',
-        route: '/api',
+        label: 'Enrich API',
+        id: 'api/enrich',
+        route: '/api/enrich',
+        showNavLink: true,
         configuration: {
           spec: {
             // Put the URL to your OpenAPI document here:
-            url: 'https://visibility.int.iroh.site/iroh/private-intel/swagger.json',
+            url: '/api-specs/iroh-int-enrich.json',
+          },
+        },
+      },
+    ],
+    [
+      '@scalar/docusaurus',
+      {
+        label: 'Response API',
+        id: 'api/response',
+        route: '/api/response',
+        showNavLink: true,
+        configuration: {
+          spec: {
+            // Put the URL to your OpenAPI document here:
+            url: '/api-specs/iroh-int-response.json',
+          },
+        },
+      },
+    ],
+    [
+      '@scalar/docusaurus',
+      {
+        label: 'Dashboard API',
+        id: 'api/dashbaord',
+        route: '/api/dashboard',
+        showNavLink: true,
+        configuration: {
+          spec: {
+            // Put the URL to your OpenAPI document here:
+            url: '/api-specs/iroh-int-dashboard-web-service.json',
+          },
+        },
+      },
+    ],
+
+    [
+      '@scalar/docusaurus',
+      {
+        label: 'Private Intel API',
+        id: 'api/private-intel',
+        route: '/api/private-intel',
+        configuration: {
+          spec: {
+            // Put the URL to your OpenAPI document here:
+            url: '/api-specs/privateintel-service.json',
           },
         },
       },
