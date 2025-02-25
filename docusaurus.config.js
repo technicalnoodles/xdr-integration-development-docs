@@ -5,6 +5,7 @@
 // See: https://docusaurus.io/docs/api/docusaurus-config
 
 import { themes as prismThemes } from 'prism-react-renderer';
+import ScalarOptions from '@scalar/docusaurus';
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
@@ -35,6 +36,22 @@ const config = {
     defaultLocale: 'en',
     locales: ['en', 'fr'],
   },
+
+  plugins: [
+    [
+      '@scalar/docusaurus',
+      {
+        label: 'API',
+        route: '/api',
+        configuration: {
+          spec: {
+            // Put the URL to your OpenAPI document here:
+            url: 'https://visibility.int.iroh.site/iroh/private-intel/swagger.json',
+          },
+        },
+      },
+    ],
+  ],
 
   presets: [
     [
