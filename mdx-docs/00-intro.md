@@ -15,15 +15,15 @@ We will do a quick overview of each so there is a base level of knowledge around
 
 ![incidents image](../static/img/intro/xdr-incidents.png)
 
-### Overview
+#### Overview
 
 Incidents in XDR are the culmination of data from all the products integrated into XDR that provide data to the Data Analytics Platform (DAP). The DAP takes in data from these products, analyzes it for statistics, deviations, threat patterns, and more. Then the analysis is able to create an incident with supporting eveidence from the integrated products.
 
-### Who Should Contribute
+#### Who Should Contribute
 
 If your products can contribute telemetry or security detections, then an integration here would be a great value to your customers.
 
-### Integration Types
+#### Integration Types
 
 <!-- <details>
 
@@ -54,7 +54,7 @@ Injected incidents are incidents that are added to the XDR incidents queue via A
 
 ![investigation image](../static/img/intro/xdr-investigation.png)
 
-### Overview
+#### Overview
 
 Investigations in XDR is how we combine threat intelligence, security detections, and response into a single command center. This data is combined and then shown to users to that they can be proactive and make better informed decisions when stopping threats and reducing [dwell time](https://www.connectwise.com).
 
@@ -72,7 +72,7 @@ Observables can be identified system or network artifacts such as:
 - User Agents
 - Many More
 
-### Who Should Contribute
+#### Who Should Contribute
 
 If your product is able to provide at least of the below, then it is a good candidate to integrate with XDR.
 
@@ -81,7 +81,7 @@ If your product is able to provide at least of the below, then it is a good cand
 - Provide records (logs) about observables (Sightings)
 - Provide response capabilities based on the type of observable (Response)
 
-### Integration Types
+#### Integration Types
 
 <Tabs>
   <TabItem value="deliberation" label="Deliberation" default>
@@ -100,8 +100,77 @@ If your product is able to provide at least of the below, then it is a good cand
 
 ## Automate
 
+![automate image](../static/img/intro/xdr-automate.png)
+
+#### Overview
+
+XDR Automate is a low code/no code framework to create automation "workflows". These workflows can be used to automate security processes like:
+
+- threat investigation
+- threat hunting
+- remediation actions
+
+The workflows can be used for any other number of processes. As an example it could be used to invite users to different products if they are new or parse CSV files and export it in a format you need.
+
+#### Who Should Contribute
+
+If your product has **RESTful** APIs, then it can be used in XDR Automate. This will allow your customers to be able to use your product in a rapid and efficient manner.
+
+#### Integration Types
+
+<Tabs>
+  <TabItem value="workflows" label="Workflows" default>
+    Developing a workflow is as easy as loading up the Automation page and creating a new workflow.  Drag and drop what funcitons you need to use and get started.
+  </TabItem>
+  <TabItem value="actionns" label="Actions">
+    Actions are workflows that do a single thing and have been converted into an "Atomic".  An atomic is a building black that can be used in a workflow.
+  </TabItem>
+</Tabs>
+
 ## Dashboard Tiles
 
 ![Example banner](../static/img/intro/xdr-dashboard.png)
 
+#### Overview
+
+#### Who Should Contribute
+
+#### Integration Types
+
+<Tabs>
+  <TabItem value="deliberation" label="Deliberation" default>
+    Deliberating an observable in XDR inlcudes querying your product API about a specific observable and getting back a verdict.  The verdict can be uknown, suspicious, malicious, clean, and some others.
+  </TabItem>
+  <TabItem value="sightings" label="Sightings">
+    Sightings are the logs from your product(s) that can be provided to XDR as additional information or indications within an XDR investigation.
+  </TabItem>
+    <TabItem value="referral" label="Referral">
+    Referrals are useful to customers because it allows them to pivot out of the Cisco XDR and into your product's UI using a unique URL that your products provides. This is usually done as a way for customers to get additional information about an observable that we cannot display within XDR but your product does provide.
+  </TabItem>
+    <TabItem value="response" label="Response">
+    Response actions are options you can provide to do "something" with an observable. This something can be to quarantine an observable, block it, or anything else your product is able to provide as an action on that observable.
+  </TabItem>
+</Tabs>
+
 ## Assets
+
+#### Overview
+
+#### Who Should Contribute
+
+#### Integration Types
+
+<Tabs>
+  <TabItem value="deliberation" label="Deliberation" default>
+    Deliberating an observable in XDR inlcudes querying your product API about a specific observable and getting back a verdict.  The verdict can be uknown, suspicious, malicious, clean, and some others.
+  </TabItem>
+  <TabItem value="sightings" label="Sightings">
+    Sightings are the logs from your product(s) that can be provided to XDR as additional information or indications within an XDR investigation.
+  </TabItem>
+    <TabItem value="referral" label="Referral">
+    Referrals are useful to customers because it allows them to pivot out of the Cisco XDR and into your product's UI using a unique URL that your products provides. This is usually done as a way for customers to get additional information about an observable that we cannot display within XDR but your product does provide.
+  </TabItem>
+    <TabItem value="response" label="Response">
+    Response actions are options you can provide to do "something" with an observable. This something can be to quarantine an observable, block it, or anything else your product is able to provide as an action on that observable.
+  </TabItem>
+</Tabs>
