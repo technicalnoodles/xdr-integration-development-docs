@@ -125,7 +125,7 @@ const config = {
           // Remove this to remove the "edit this page" links.
           // editUrl: '',
           path: 'mdx-docs',
-          routeBasePath: '/',
+          routeBasePath: '/docs',
         },
         theme: {
           customCss: './src/css/custom.css',
