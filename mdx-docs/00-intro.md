@@ -129,15 +129,28 @@ If your product has **RESTful** APIs, then it can be used in XDR Automate. This 
 
 ## Dashboard Tiles
 
-![Example banner](../static/img/intro/xdr-dashboard.png)
+![dashboard tiles](../static/img/intro/xdr-dashboard.png)
 
 #### Overview
 
+Dashboard tiles are a way to show your products data in a centralized dashboard. It can be used ot display data in a variety of ways, like:
+
+- Donut Charts
+- Bar Charts
+- Numbers
+- Stacked Charts
+- Geographic Maps
+- Line Charts
+
 #### Who Should Contribute
+
+If your product has **RESTful** APIs, then you can make dashboard tiles and get your data displayed here.
 
 #### Integration Types
 
-<Tabs>
+There are multiple tile types and we will go over those in the development section.
+
+<!-- <Tabs>
   <TabItem value="deliberation" label="Deliberation" default>
     Deliberating an observable in XDR inlcudes querying your product API about a specific observable and getting back a verdict.  The verdict can be uknown, suspicious, malicious, clean, and some others.
   </TabItem>
@@ -150,27 +163,34 @@ If your product has **RESTful** APIs, then it can be used in XDR Automate. This 
     <TabItem value="response" label="Response">
     Response actions are options you can provide to do "something" with an observable. This something can be to quarantine an observable, block it, or anything else your product is able to provide as an action on that observable.
   </TabItem>
-</Tabs>
+</Tabs> -->
 
 ## Assets
 
+![assets](../static/img/intro/xdr-assets.png)
+
 #### Overview
 
+Asset Insights is a one stop shop for all information around an environments assets. This information can be used around understanding the security landscape and business risk of incidents that occur involving these assets.
+
 #### Who Should Contribute
+
+If your product collects or discovers asset information or intelligence, such as:
+
+- System Name
+- User Relationships
+- Patch Version
+- Agent State
+- Network Addresses
+- Many more
 
 #### Integration Types
 
 <Tabs>
-  <TabItem value="deliberation" label="Deliberation" default>
-    Deliberating an observable in XDR inlcudes querying your product API about a specific observable and getting back a verdict.  The verdict can be uknown, suspicious, malicious, clean, and some others.
+  <TabItem value="retreival" label="Retreival" default>
+    Once the Assets API is available, it can be used to pull information around assets and be used in your products services or to enhance funcitons of your product.
   </TabItem>
-  <TabItem value="sightings" label="Sightings">
-    Sightings are the logs from your product(s) that can be provided to XDR as additional information or indications within an XDR investigation.
-  </TabItem>
-    <TabItem value="referral" label="Referral">
-    Referrals are useful to customers because it allows them to pivot out of the Cisco XDR and into your product's UI using a unique URL that your products provides. This is usually done as a way for customers to get additional information about an observable that we cannot display within XDR but your product does provide.
-  </TabItem>
-    <TabItem value="response" label="Response">
-    Response actions are options you can provide to do "something" with an observable. This something can be to quarantine an observable, block it, or anything else your product is able to provide as an action on that observable.
+  <TabItem value="import" label="Import">
+    Using the XDR CSV upload, you can import assets into XDR and XDR can use these assets in investigations and incidents to determine risk and severity of an incident. Once the Assets API is available, this can be a much more automated process.
   </TabItem>
 </Tabs>
