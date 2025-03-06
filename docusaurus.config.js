@@ -43,7 +43,8 @@ const config = {
       {
         label: 'Enrich API',
         id: 'api/enrich',
-        route: '/api/enrich',
+        route:
+          'https://technicalnoodles.github.io/xdr-integration-development-docs/api/enrich',
         showNavLink: true,
         configuration: {
           spec: {
