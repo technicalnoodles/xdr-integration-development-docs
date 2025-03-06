@@ -5,14 +5,15 @@
 // See: https://docusaurus.io/docs/api/docusaurus-config
 
 import { themes as prismThemes } from 'prism-react-renderer';
+import ScalarOptions from '@scalar/docusaurus';
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'My Site',
-  tagline: 'Dinosaurs are cool',
-  favicon: 'img/favicon.ico',
+  title: 'Cisco XDR Integration Resources',
+  tagline: 'Create an integration with Cisco XDR',
+  favicon: 'img/cisco-logo-transparent.png',
 
   // Set the production url of your site here
   url: 'https://your-docusaurus-site.example.com',
@@ -22,8 +23,8 @@ const config = {
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'Cisco', // Usually your GitHub org/user name.
+  projectName: 'Cisco XDR Integration Resources', // Usually your repo name.
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -36,6 +37,83 @@ const config = {
     locales: ['en', 'fr'],
   },
 
+  plugins: [
+    [
+      '@scalar/docusaurus',
+      {
+        label: 'Enrich API',
+        id: 'api/enrich',
+        route: '/api/enrich',
+        showNavLink: true,
+        configuration: {
+          spec: {
+            // Put the URL to your OpenAPI document here:
+            url: '/api-specs/iroh-int-enrich.json',
+          },
+        },
+      },
+    ],
+    [
+      '@scalar/docusaurus',
+      {
+        label: 'Response API',
+        id: 'api/response',
+        route: '/api/response',
+        showNavLink: true,
+        configuration: {
+          spec: {
+            // Put the URL to your OpenAPI document here:
+            url: '/api-specs/iroh-int-response.json',
+          },
+        },
+      },
+    ],
+    [
+      '@scalar/docusaurus',
+      {
+        label: 'Dashboard API',
+        id: 'api/dashbaord',
+        route: '/api/dashboard',
+        showNavLink: true,
+        configuration: {
+          spec: {
+            // Put the URL to your OpenAPI document here:
+            url: '/api-specs/iroh-int-dashboard-web-service.json',
+          },
+        },
+      },
+    ],
+
+    [
+      '@scalar/docusaurus',
+      {
+        label: 'Private Intel API',
+        id: 'api/private-intel',
+        route: '/api/private-intel',
+        configuration: {
+          spec: {
+            // Put the URL to your OpenAPI document here:
+            url: '/api-specs/privateintel-service.json',
+          },
+        },
+      },
+    ],
+    // [
+    //   '@scalar/docusaurus',
+    //   {
+    //     label: 'Massive',
+    //     id: 'api/massive',
+    //     route: '/api/massive',
+    //     configuration: {
+    //       spec: {
+    //         // Put the URL to your OpenAPI document here:
+    //         url: '/api-specs/mass.json',
+    //       },
+    //     },
+    //   },
+    // ],
+  ],
+
   presets: [
     [
       'classic',
@@ -45,23 +123,7 @@ const config = {
           sidebarPath: './sidebars.js',
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
-        },
-        blog: {
-          showReadingTime: true,
-          feedOptions: {
-            type: ['rss', 'atom'],
-            xslt: true,
-          },
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
-          // Useful options to enforce blogging best practices
-          onInlineTags: 'warn',
-          onInlineAuthors: 'warn',
-          onUntruncatedBlogPosts: 'warn',
+          editUrl: 'cisco.com',
         },
         theme: {
           customCss: './src/css/custom.css',
@@ -76,10 +138,10 @@ const config = {
       // Replace with your project's social card
       image: 'img/docusaurus-social-card.jpg',
       navbar: {
-        title: 'Cisco XDR Dev',
+        title: 'Cisco XDR Integration Resources',
         logo: {
-          alt: 'My Site Logo',
-          src: 'img/logo.svg',
+          alt: 'Cisco Logo',
+          src: 'img/cisco-logo-transparent.png',
         },
         items: [
           {
@@ -90,7 +152,7 @@ const config = {
           },
 
           {
-            href: 'https://github.com/facebook/docusaurus',
+            href: 'https://cisco.com',
             label: 'GitHub',
             position: 'right',
           },
@@ -98,48 +160,8 @@ const config = {
       },
       footer: {
         style: 'dark',
-        links: [
-          {
-            title: 'Docs',
-            items: [
-              {
-                label: 'Tutorial',
-                to: '/docs/intro',
-              },
-            ],
-          },
-          {
-            title: 'Community',
-            items: [
-              {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-              },
-              {
-                label: 'Discord',
-                href: 'https://discordapp.com/invite/docusaurus',
-              },
-              {
-                label: 'X',
-                href: 'https://x.com/docusaurus',
-              },
-            ],
-          },
-          {
-            title: 'More',
-            items: [
-              {
-                label: 'Blog',
-                to: '/blog',
-              },
-              {
-                label: 'GitHub',
-                href: 'https://github.com/facebook/docusaurus',
-              },
-            ],
-          },
-        ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+        links: [],
+        copyright: `Copyright © ${new Date().getFullYear()} Cisco Systems.`,
       },
       prism: {
         theme: prismThemes.github,

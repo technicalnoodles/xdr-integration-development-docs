@@ -1,0 +1,893 @@
+{
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    {
+      "name": "AppLinks",
+      "description": "IROH Dashboard AppLinks"
+    },
+    {
+      "name": "Tiles",
+      "description": "IROH Dashboard Tiles"
+    }
+  ],
+  "securityDefinitions": {
+    "iroh": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "authorization"
+    },
+    "AuthorizationHeader": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "authorization",
+      "description": "Ex: Bearer \\<token\\>"
+    },
+    "oauth2": {
+      "type": "oauth2",
+      "scopes": {
+        "telemetry": "collect application data for analytics",
+        "integration": "Manage your modules",
+        "private-intel": "Access Private Intelligence",
+        "admin": "Provide admin privileges",
+        "cognitive": "Cognitive Integration",
+        "profile": "Get your profile information",
+        "inspect": "Extract Observables and data from text",
+        "asset": "Access and modify your assets",
+        "event": "Read IROH Events",
+        "feedback": "Submit Customer Feedback",
+        "sse": "SSE Integration. Manage your Devices.",
+        "registry": "Manage registry entries",
+        "users": "Manage users of your organisation",
+        "investigation": "Perform threat analysis investigation",
+        "invite": "Invite users into your organization",
+        "casebook": "Access and modify your casebooks",
+        "orbital": "Orbital Integration.",
+        "enrich": "Query your configured modules for threat intelligence",
+        "oauth": "Manage OAuth2 Clients",
+        "vault": "Grants access to Module Vaults",
+        "response": "List and execute response actions using configured modules",
+        "notification": "Receive notifications from integrations",
+        "global-intel:read": "Access AMP Global Intelligence",
+        "webhook": "Manage your Webhooks",
+        "ao": "AO Integration."
+      },
+      "authorizationUrl": "https://visibility.int.iroh.site/iroh/oauth2/authorize",
+      "tokenUrl": "https://visibility.int.iroh.site/iroh/oauth2/token",
+      "flow": "accessCode"
+    }
+  },
+  "definitions": {
+    "AppLink": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "module_instance_state": {
+          "type": "string"
+        },
+        "module_type_title": {
+          "type": "string"
+        },
+        "meta": {
+          "$ref": "#/definitions/EnvelopedAppLinksDataMeta"
+        },
+        "logo": {
+          "type": "string"
+        },
+        "module_type_id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "module": {
+          "type": "string"
+        },
+        "selected_url": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "module_instance_id": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "module_type_title",
+        "module_type_id",
+        "title",
+        "selected_url",
+        "url"
+      ]
+    },
+    "AppLinkErrorMessage": {
+      "type": "object",
+      "properties": {
+        "module_instance_id": {
+          "type": "string"
+        },
+        "module_type_id": {
+          "type": "string"
+        },
+        "module_instance_state": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "fatal",
+            "warning",
+            "error"
+          ]
+        },
+        "module": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "message",
+        "type"
+      ]
+    },
+    "EnvelopedAppLink": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/AppLink"
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AppLinkErrorMessage"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "EnvelopedAppLinkDataMeta": {
+      "type": "object",
+      "properties": {
+        "x_okta_bookmark_id": {
+          "type": "string"
+        },
+        "x_query_params": {
+          "$ref": "#/definitions/EnvelopedAppLinkDataMetaXQueryParams"
+        }
+      },
+      "additionalProperties": false
+    },
+    "EnvelopedAppLinkDataMetaXQueryParams": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "EnvelopedAppLinks": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AppLink"
+          }
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AppLinkErrorMessage"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "EnvelopedAppLinksDataMeta": {
+      "type": "object",
+      "properties": {
+        "x_okta_bookmark_id": {
+          "type": "string"
+        },
+        "x_query_params": {
+          "$ref": "#/definitions/EnvelopedAppLinksDataMetaXQueryParams"
+        }
+      },
+      "additionalProperties": false
+    },
+    "EnvelopedAppLinksDataMetaXQueryParams": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "EnvelopedTile": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/Tile",
+          "x-nullable": true
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ErrorMessage"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "EnvelopedTileData": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/TileData",
+          "x-nullable": true
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ErrorMessage"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "EnvelopedTileGroups": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TileGroup"
+          }
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ErrorMessage"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "EnvelopedTiles": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Tile"
+          }
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ErrorMessage"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "ErrorMessage": {
+      "type": "object",
+      "properties": {
+        "module_instance_id": {
+          "type": "string"
+        },
+        "module_type_id": {
+          "type": "string"
+        },
+        "module_instance_state": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "fatal",
+            "warning",
+            "error"
+          ]
+        },
+        "module": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "module_instance_id",
+        "module_type_id",
+        "code",
+        "message",
+        "type"
+      ]
+    },
+    "Tile": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "periods": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "last_7_days",
+              "last_24_hours",
+              "last_hour",
+              "last_30_days",
+              "last_90_days",
+              "last_60_days"
+            ]
+          }
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "module_instance_state": {
+          "type": "string"
+        },
+        "module_type_id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "short_description": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "data_url": {
+          "type": "string"
+        },
+        "module": {
+          "type": "string"
+        },
+        "default_period": {
+          "type": "string",
+          "enum": [
+            "last_7_days",
+            "last_24_hours",
+            "last_hour",
+            "last_30_days",
+            "last_90_days",
+            "last_60_days"
+          ]
+        },
+        "id": {
+          "type": "string"
+        },
+        "module_instance_id": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "description",
+        "tags",
+        "module_type_id",
+        "type",
+        "short_description",
+        "title",
+        "module",
+        "id",
+        "module_instance_id"
+      ]
+    },
+    "TileData": {
+      "type": "object",
+      "properties": {
+        "valid_time": {
+          "$ref": "#/definitions/ValidTime"
+        },
+        "module_instance_state": {
+          "type": "string"
+        },
+        "module_type_id": {
+          "type": "string"
+        },
+        "module": {
+          "type": "string"
+        },
+        "tile_id": {
+          "type": "string"
+        },
+        "cache_scope": {
+          "description": "",
+          "org": "A cache can be hit only for the same org",
+          "user": "A cache can be hit only for the same user",
+          "none": "No cache will be built at all",
+          "type": "string",
+          "enum": [
+            "org",
+            "user",
+            "none"
+          ]
+        },
+        "period": {
+          "type": "string",
+          "enum": [
+            "last_7_days",
+            "last_24_hours",
+            "last_hour",
+            "last_30_days",
+            "last_90_days",
+            "last_60_days"
+          ]
+        },
+        "observed_time": {
+          "$ref": "#/definitions/ValidTime"
+        },
+        "module_instance_id": {
+          "type": "string"
+        },
+        "data": {}
+      },
+      "additionalProperties": {},
+      "required": [
+        "valid_time",
+        "module_type_id",
+        "module",
+        "cache_scope",
+        "observed_time",
+        "module_instance_id",
+        "data"
+      ]
+    },
+    "TileGroup": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "parent-id": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "module": {
+          "type": "string"
+        },
+        "module_instance_id": {
+          "type": "string"
+        },
+        "module_type_id": {
+          "type": "string"
+        },
+        "module_instance_state": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "module",
+        "module_instance_id",
+        "module_type_id"
+      ]
+    },
+    "ValidTime": {
+      "example": {
+        "start_time": "2016-01-01T01:01:01.000Z",
+        "end_time": "2016-01-01T01:01:01.000Z"
+      },
+      "description": "Period of time when a cyber observation is valid.",
+      "type": "object",
+      "properties": {
+        "start_time": {
+          "example": "2016-01-01T01:01:01.000Z",
+          "description": "If not present, the valid time position of the indicator does not have an upper bound.",
+          "type": "string",
+          "format": "date-time"
+        },
+        "end_time": {
+          "example": "2016-01-01T01:01:01.000Z",
+          "description": "If end_time is not present, then the valid time position of the object does not have an upper bound.",
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "additionalProperties": {}
+    }
+  },
+  "security": [
+    {
+      "iroh": []
+    },
+    {
+      "AuthorizationHeader": []
+    },
+    {
+      "oauth2": [
+        "telemetry",
+        "integration",
+        "private-intel",
+        "admin",
+        "cognitive",
+        "profile",
+        "inspect",
+        "asset",
+        "event",
+        "feedback",
+        "sse",
+        "registry",
+        "users",
+        "investigation",
+        "invite",
+        "casebook",
+        "orbital",
+        "enrich",
+        "oauth",
+        "vault",
+        "response",
+        "notification",
+        "global-intel:read",
+        "webhook",
+        "ao"
+      ]
+    }
+  ],
+  "produces": [
+    "application/json",
+    "application/x-yaml",
+    "application/edn",
+    "application/transit+json",
+    "application/transit+msgpack"
+  ],
+  "paths": {
+    "/iroh/iroh-dashboard/app-links": {
+      "get": {
+        "x-no-doc": false,
+        "tags": [
+          "AppLinks"
+        ],
+        "description": "[required scopes](/iroh/doc/iroh-auth/#scopes): `integration/app-link:read`\n\n",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "module-type-filter",
+            "description": "default behavior is 'require-instance'",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "require-instance",
+              "all"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/EnvelopedAppLinks"
+            },
+            "description": ""
+          }
+        },
+        "summary": "List all `AppLink`s"
+      }
+    },
+    "/iroh/iroh-dashboard/app-links/{module-instance-id}": {
+      "get": {
+        "x-no-doc": false,
+        "tags": [
+          "AppLinks"
+        ],
+        "description": "[required scopes](/iroh/doc/iroh-auth/#scopes): `integration/app-link:read`\n\n",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "module-instance-id",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/EnvelopedAppLink"
+            },
+            "description": ""
+          }
+        },
+        "summary": "Get an `AppLink`"
+      }
+    },
+    "/iroh/iroh-dashboard/tiles": {
+      "get": {
+        "x-no-doc": false,
+        "tags": [
+          "Tiles"
+        ],
+        "description": "[required scopes](/iroh/doc/iroh-auth/#scopes): `integration/tile:read`\n\n",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "xdr",
+            "description": "XDR Platform",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "1",
+              "0"
+            ],
+            "allowEmptyValue": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/EnvelopedTiles"
+            },
+            "description": ""
+          }
+        },
+        "summary": "List all `Tile`s"
+      }
+    },
+    "/iroh/iroh-dashboard/tiles/{module-instance-id}": {
+      "get": {
+        "x-no-doc": false,
+        "tags": [
+          "Tiles"
+        ],
+        "description": "[required scopes](/iroh/doc/iroh-auth/#scopes): `integration/tile:read`\n\n",
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/EnvelopedTiles"
+            },
+            "description": ""
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "module-instance-id",
+            "description": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "xdr",
+            "description": "XDR Platform",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "1",
+              "0"
+            ],
+            "allowEmptyValue": true
+          }
+        ],
+        "summary": "List `Tile`s for a Module Instance Id"
+      }
+    },
+    "/iroh/iroh-dashboard/tiles/{module-instance-id}/{tile-id}": {
+      "get": {
+        "x-no-doc": false,
+        "tags": [
+          "Tiles"
+        ],
+        "description": "[required scopes](/iroh/doc/iroh-auth/#scopes): `integration/tile:read`\n\n",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "module-instance-id",
+            "description": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "tile-id",
+            "description": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "xdr",
+            "description": "XDR Platform",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "1",
+              "0"
+            ],
+            "allowEmptyValue": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/EnvelopedTile"
+            },
+            "description": ""
+          }
+        },
+        "summary": "Get a `Tile`"
+      }
+    },
+    "/iroh/iroh-dashboard/tiles/{module-instance-id}/{tile-id}/data": {
+      "get": {
+        "x-no-doc": false,
+        "tags": [
+          "Tiles"
+        ],
+        "description": "[required scopes](/iroh/doc/iroh-auth/#scopes): `integration/tile:read`\n\n",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "module-instance-id",
+            "description": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "tile-id",
+            "description": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "period",
+            "description": "Select the Data Period",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "last_7_days",
+              "last_24_hours",
+              "last_hour",
+              "last_30_days",
+              "last_90_days",
+              "last_60_days"
+            ],
+            "allowEmptyValue": true
+          },
+          {
+            "in": "query",
+            "name": "groups",
+            "description": "Specify the Requested Groups",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "allowEmptyValue": true
+          },
+          {
+            "in": "query",
+            "name": "xdr",
+            "description": "XDR Platform",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "1",
+              "0"
+            ],
+            "allowEmptyValue": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/EnvelopedTileData"
+            },
+            "description": ""
+          }
+        },
+        "summary": "Get Data for a `Tile`, includes caching headers"
+      }
+    },
+    "/iroh/iroh-dashboard/tiles/{module-instance-id}/{tile-id}/data/groups": {
+      "get": {
+        "x-no-doc": false,
+        "tags": [
+          "Tiles"
+        ],
+        "description": "[required scopes](/iroh/doc/iroh-auth/#scopes): `integration/tile:read`\n\n",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "module-instance-id",
+            "description": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "tile-id",
+            "description": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "allowEmptyValue": true
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "description": "",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "allowEmptyValue": true
+          },
+          {
+            "in": "query",
+            "name": "search",
+            "description": "",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/EnvelopedTileGroups"
+            },
+            "description": ""
+          }
+        },
+        "summary": "Get Data for a Tile, includes caching headers"
+      }
+    }
+  },
+  "consumes": [
+    "application/json",
+    "application/x-yaml",
+    "application/edn",
+    "application/transit+json",
+    "application/transit+msgpack"
+  ],
+  "host": "visibility.int.iroh.site",
+  "info": {
+    "title": "IROH-INT Dashboard Web Service",
+    "version": "1.0.107",
+    "license": {
+      "name": "All Rights Reserved",
+      "url": "https://www.cisco.com"
+    },
+    "contact": {
+      "name": "Cisco Security Business Group -- Advanced Threat",
+      "email": "cisco-intel-api-support@cisco.com"
+    },
+    "description": "All Dashboard APIs"
+  },
+  "swagger": "2.0",
+  "basePath": "/"
+}
