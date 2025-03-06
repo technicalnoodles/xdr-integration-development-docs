@@ -16,26 +16,26 @@ const config = {
   favicon: 'img/cisco-logo-transparent.png',
 
   // Set the production url of your site here
-  url: 'https://your-docusaurus-site.example.com',
+  url: 'https://technicalnoodles.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/',
+  baseUrl: '/xdr-integration-development-docs/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'Cisco', // Usually your GitHub org/user name.
-  projectName: 'Cisco XDR Integration Resources', // Usually your repo name.
+  projectName: 'xdr-integration-development-docs', // Usually your repo name.
 
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
 
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
   // may want to replace "en" with "zh-Hans".
-  i18n: {
-    defaultLocale: 'en',
-    locales: ['en', 'fr'],
-  },
+  // i18n: {
+  //   defaultLocale: 'en',
+  //   locales: ['en', 'fr'],
+  // },
 
   plugins: [
     [
@@ -123,9 +123,9 @@ const config = {
           sidebarPath: './sidebars.js',
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl: 'cisco.com',
+          // editUrl: '',
           path: 'mdx-docs',
-          routeBasePath: '/docs/',
+          routeBasePath: '/',
         },
         theme: {
           customCss: './src/css/custom.css',
