@@ -7,7 +7,7 @@ import TabItem from '@theme/TabItem';
 
 # XDR Development Introduction
 
-In Cisco XDR, we are able to make integrations around dashboard tiles, enrichment (investigations), threat intelligence, incidents, assets, and automation.
+In Cisco XDR, we are able to make integrations around incidents, investigations (enrichment), automation workflows, dashboard tiles, and assets.
 
 We will do a quick overview of each so there is a base level of knowledge around each and what they are able to do.
 
@@ -98,12 +98,10 @@ If your product is able to provide at least of the below, then it is a good cand
   </TabItem>
 </Tabs>
 
+## Automate
+
 ## Dashboard Tiles
 
 ![Example banner](../static/img/intro/xdr-dashboard.png)
 
-## Threat Intelligence
-
 ## Assets
-
-## Automation
