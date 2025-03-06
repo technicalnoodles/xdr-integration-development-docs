@@ -98,6 +98,20 @@ const config = {
         },
       },
     ],
+    // [
+    //   '@scalar/docusaurus',
+    //   {
+    //     label: 'Massive',
+    //     id: 'api/massive',
+    //     route: '/api/massive',
+    //     configuration: {
+    //       spec: {
+    //         // Put the URL to your OpenAPI document here:
+    //         url: '/api-specs/mass.json',
+    //       },
+    //     },
+    //   },
+    // ],
   ],
 
   presets: [

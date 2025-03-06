@@ -1,0 +1,15 @@
+{
+  "inputs": [
+    {
+      "inputFile": "./iroh-int-dashboard-web-service.json"
+    },
+    {
+      "inputFile": "./iroh-int-enrich.json"
+    },
+    {
+      "inputFile": "./iroh-int-response.json"
+    },
+    { "inputFile": "./privateintel-service.json" }
+  ],
+  "output": "./output.swagger.json"
+}
