@@ -1,5 +1,5 @@
 ---
-sidebar_position: 1
+sidebar_position: 0
 ---
 
 # Creating a Relay Module
@@ -120,5 +120,7 @@ You should get a connected message.
 With this, we have finished making sure the module is running and accessible and that XDR can connect to it.
 
 :::note
-In the future, we will need to move away from using this generic module and move towards a full module which has a _module definition_ added to XDR. We will keep that in mind moving forward and make it fairly easy to make that conversion later on.
+This is a quick way get an integration connected to Cisco XDR for development. But it will not have eveything that can be done with a relay module. As an example, if your product is able to provide value to the XDR Dashboard area, then we will need to create a **module type** that enables the _tile_ functionality.
 :::
+
+Next, we will create a **module type**. This is the official way to add an integration to Cisco XDR and it is how your product will be shown within the Cisco XDR Integrations page.

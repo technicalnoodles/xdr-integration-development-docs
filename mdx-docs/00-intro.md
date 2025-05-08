@@ -7,9 +7,47 @@ import TabItem from '@theme/TabItem';
 
 # XDR Development Introduction
 
-In Cisco XDR, we are able to make integrations around incidents, investigations (enrichment), automation workflows, dashboard tiles, and assets.
+In Cisco XDR, we are able to make integrations around dashboard tiles, incidents, investigations (enrichment), automation workflows, and assets.
 
 We will do a quick overview of each so there is a base level of knowledge around each and what they are able to do.
+
+## Dashboard Tiles
+
+![dashboard tiles](../static/img/intro/xdr-dashboard.png)
+
+#### Overview
+
+Dashboard tiles are a way to show your products data in a centralized dashboard. It can be used ot display data in a variety of ways, like:
+
+- Donut Charts
+- Bar Charts
+- Numbers
+- Stacked Charts
+- Geographic Maps
+- Line Charts
+
+#### Who Should Contribute
+
+If your product has **RESTful** APIs, then you can make dashboard tiles and get your data displayed here.
+
+#### Integration Types
+
+There are multiple tile types and we will go over those in the development section.
+
+<!-- <Tabs>
+  <TabItem value="deliberation" label="Deliberation" default>
+    Deliberating an observable in XDR inlcudes querying your product API about a specific observable and getting back a verdict.  The verdict can be uknown, suspicious, malicious, clean, and some others.
+  </TabItem>
+  <TabItem value="sightings" label="Sightings">
+    Sightings are the logs from your product(s) that can be provided to XDR as additional information or indications within an XDR investigation.
+  </TabItem>
+    <TabItem value="referral" label="Referral">
+    Referrals are useful to customers because it allows them to pivot out of the Cisco XDR and into your product's UI using a unique URL that your products provides. This is usually done as a way for customers to get additional information about an observable that we cannot display within XDR but your product does provide.
+  </TabItem>
+    <TabItem value="response" label="Response">
+    Response actions are options you can provide to do "something" with an observable. This something can be to quarantine an observable, block it, or anything else your product is able to provide as an action on that observable.
+  </TabItem>
+</Tabs> -->
 
 ## Incidents
 
@@ -126,44 +164,6 @@ If your product has **RESTful** APIs, then it can be used in XDR Automate. This 
     Actions are workflows that do a single thing and have been converted into an "Atomic".  An atomic is a building black that can be used in a workflow.
   </TabItem>
 </Tabs>
-
-## Dashboard Tiles
-
-![dashboard tiles](../static/img/intro/xdr-dashboard.png)
-
-#### Overview
-
-Dashboard tiles are a way to show your products data in a centralized dashboard. It can be used ot display data in a variety of ways, like:
-
-- Donut Charts
-- Bar Charts
-- Numbers
-- Stacked Charts
-- Geographic Maps
-- Line Charts
-
-#### Who Should Contribute
-
-If your product has **RESTful** APIs, then you can make dashboard tiles and get your data displayed here.
-
-#### Integration Types
-
-There are multiple tile types and we will go over those in the development section.
-
-<!-- <Tabs>
-  <TabItem value="deliberation" label="Deliberation" default>
-    Deliberating an observable in XDR inlcudes querying your product API about a specific observable and getting back a verdict.  The verdict can be uknown, suspicious, malicious, clean, and some others.
-  </TabItem>
-  <TabItem value="sightings" label="Sightings">
-    Sightings are the logs from your product(s) that can be provided to XDR as additional information or indications within an XDR investigation.
-  </TabItem>
-    <TabItem value="referral" label="Referral">
-    Referrals are useful to customers because it allows them to pivot out of the Cisco XDR and into your product's UI using a unique URL that your products provides. This is usually done as a way for customers to get additional information about an observable that we cannot display within XDR but your product does provide.
-  </TabItem>
-    <TabItem value="response" label="Response">
-    Response actions are options you can provide to do "something" with an observable. This something can be to quarantine an observable, block it, or anything else your product is able to provide as an action on that observable.
-  </TabItem>
-</Tabs> -->
 
 ## Assets
 
