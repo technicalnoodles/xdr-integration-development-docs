@@ -77,9 +77,9 @@ It should bring up a new page where we can setup the relay.
 
 ![relay settings](../../static/img/relay/relay-settings.png)
 
-For this guide, we will use the `crt.sh` service as the our integration. You may use any that want, but to be able to follow along step by step, we recommend using the `crt.sh` service as well.
+For this guide, we will use _Wazuh_ an Opensource XDR as the our integration. You may use any that want, but to be able to follow along step by step, we recommend using _Wazuh_ as well.
 
-In the _Integration Name_ field, input _CRT.SH_.
+In the _Integration Name_ field, input _Wazuh_.
 
 In the _URL_ field, enter the ngrok _Forwarder_ URL with nothing at the end of it.
 
@@ -87,7 +87,7 @@ In the _Bearer_ field, you may enter whatever you want. We will not be using one
 
 Your relay settings should look similar to the below:
 
-![relay settings](../../static/img/relay/settings.png)
+![relay settings](../../static/img/relay/wazuh-generic-small.png)
 
 Before we click on _Add_, we need change the health check from a GET to a POST. Go to the `routes -> health` directory. Open the `healthRoute.js` file. It should look like this:
 
@@ -115,7 +115,7 @@ Now that we have done that, we can click on _Add_.
 
 You should get a connected message.
 
-![relay settings](../../static/img/relay/generic-relay-connected.png)
+![relay settings](../../static/img/relay/wazuh-connected.png)
 
 With this, we have finished making sure the module is running and accessible and that XDR can connect to it.
 
