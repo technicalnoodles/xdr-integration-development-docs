@@ -40,7 +40,7 @@ If you have the `jq` command installed, we can pipe the command into jq and get 
 
 ## Test the Module Locally (from XDR)
 
-To test the module from our on-prem device (laptop, desktop or other internal development server), we will use ngrok to faciliate the connection between the local server and XDR.
+To test the module from our on-prem device (laptop, desktop or other internal development server), we will use ngrok to facilitate the connection between the local server and XDR.
 
 :::note
 if you do not want to use ngrok, I would recommend developing the relay in a cloud provider with a public IP on the VM, or by port forwarding to your development server. Please do not leave either of these options constantly running because of security risks.
@@ -48,7 +48,7 @@ if you do not want to use ngrok, I would recommend developing the relay in a clo
 
 We must first get ngrok from this link: https://download.ngrok.com/
 
-Then follow the isntructions to get a ngrok auth token added to your profile. Then using the _Ephemeral Domain_ option, run the command listed but change the port to 5000. It should look similar to this command `ngrok http http://localhost:5000`.
+Then follow the instructions to get a ngrok auth token added to your profile. Then using the _Ephemeral Domain_ option, run the command listed but change the port to 5000. It should look similar to this command `ngrok http http://localhost:5000`.
 
 It should return a status page in your terminal:
 ![ngrok status](../../static/img/relay/ngrok-status.png)
@@ -120,7 +120,7 @@ You should get a connected message.
 With this, we have finished making sure the module is running and accessible and that XDR can connect to it.
 
 :::note
-This is a quick way get an integration connected to Cisco XDR for development. But it will not have eveything that can be done with a relay module. As an example, if your product is able to provide value to the XDR Dashboard area, then we will need to create a **module type** that enables the _tile_ functionality.
+This is a quick way get an integration connected to Cisco XDR for development. But it will not have everything that can be done with a relay module. As an example, if your product is able to provide value to the XDR Dashboard area, then we will need to create a **module type** that enables the _tile_ functionality.
 :::
 
 Next, we will create a **module type**. This is the official way to add an integration to Cisco XDR and it is how your product will be shown within the Cisco XDR Integrations page.

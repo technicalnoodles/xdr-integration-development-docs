@@ -21,8 +21,8 @@ The authentication helpers will be used by each API route we make in the future.
 In the blank _auth.js_ file, paste the following code. This code will be used to parse the basic authentication token and get us the username and password that was sent in it.
 
 ```javascript
-import axios from 'axios';
-import https from 'https';
+const axios = require('axios');
+const https = require('https');
 
 module.exports = {
   getAuthHeaders: async function (headers) {
@@ -67,8 +67,8 @@ Next we need to get the authentication token that Wazuh requires. Wazuh requires
 The entire file should look similar to the below:
 
 ```javascript title="auth.js"
-import axios from 'axios';
-import https from 'https';
+const axios = require('axios');
+const https = require('https');
 
 module.exports = {
   getAuthHeaders: async function (headers) {
@@ -77,7 +77,7 @@ module.exports = {
       .split(':');
     const user = auth[0];
     const pass = auth[1];
-    return { user, pass };
+    return [user, pass];
   },
   getToken: async function (user, pass) {
     const instance = axios.create({
