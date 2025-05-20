@@ -46,7 +46,7 @@ Next we need to get the authentication token that Wazuh requires. Wazuh requires
       httpsAgent: new https.Agent({ rejectUnauthorized: false }),
     });
     const response = await instance.post(
-      'https://ec2-3-134-247-125.us-east-2.compute.amazonaws.com:55000/security/user/authenticate',
+      'https://wazuh_url:55000/security/user/authenticate',
       '',
       {
         params: {
@@ -84,7 +84,7 @@ module.exports = {
       httpsAgent: new https.Agent({ rejectUnauthorized: false }),
     });
     const response = await instance.post(
-      'https://ec2-3-134-247-125.us-east-2.compute.amazonaws.com:55000/security/user/authenticate',
+      'https://wazuh_url:55000/security/user/authenticate',
       '',
       {
         params: {
