@@ -1,0 +1,2784 @@
+{
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    {
+      "name": "Response",
+      "description": "IROH Response"
+    }
+  ],
+  "securityDefinitions": {
+    "iroh": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "authorization"
+    },
+    "AuthorizationHeader": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "authorization",
+      "description": "Ex: Bearer \\<token\\>"
+    },
+    "oauth2": {
+      "type": "oauth2",
+      "scopes": {
+        "telemetry": "collect application data for analytics",
+        "integration": "Manage your modules",
+        "private-intel": "Access Private Intelligence",
+        "admin": "Provide admin privileges",
+        "cognitive": "Cognitive Integration",
+        "profile": "Get your profile information",
+        "inspect": "Extract Observables and data from text",
+        "asset": "Access and modify your assets",
+        "event": "Read IROH Events",
+        "feedback": "Submit Customer Feedback",
+        "sse": "SSE Integration. Manage your Devices.",
+        "registry": "Manage registry entries",
+        "users": "Manage users of your organisation",
+        "investigation": "Perform threat analysis investigation",
+        "invite": "Invite users into your organization",
+        "casebook": "Access and modify your casebooks",
+        "orbital": "Orbital Integration.",
+        "enrich": "Query your configured modules for threat intelligence",
+        "oauth": "Manage OAuth2 Clients",
+        "vault": "Grants access to Module Vaults",
+        "response": "List and execute response actions using configured modules",
+        "notification": "Receive notifications from integrations",
+        "global-intel:read": "Access AMP Global Intelligence",
+        "webhook": "Manage your Webhooks",
+        "ao": "AO Integration."
+      },
+      "authorizationUrl": "https://visibility.int.iroh.site/iroh/oauth2/authorize",
+      "tokenUrl": "https://visibility.int.iroh.site/iroh/oauth2/token",
+      "flow": "accessCode"
+    }
+  },
+  "definitions": {
+    "Action": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "module_instance_state": {
+          "type": "string"
+        },
+        "module_type_id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "module": {
+          "type": "string"
+        },
+        "categories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "id": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "module_instance_id": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "description",
+        "module_type_id",
+        "title",
+        "module",
+        "id",
+        "url",
+        "module_instance_id"
+      ]
+    },
+    "ActionResult": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "failure",
+            "success"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "status"
+      ]
+    },
+    "ColumnDefinition": {
+      "example": {
+        "name": "string",
+        "type": "integer",
+        "description": "string",
+        "required": true,
+        "short_description": "string"
+      },
+      "type": "object",
+      "properties": {
+        "name": {
+          "example": "string",
+          "type": "string"
+        },
+        "type": {
+          "example": "integer",
+          "type": "string",
+          "enum": [
+            "url",
+            "string",
+            "observable",
+            "number",
+            "integer",
+            "markdown"
+          ]
+        },
+        "description": {
+          "example": "string",
+          "description": "Markdown string with at most 5000 characters.",
+          "type": "string"
+        },
+        "required": {
+          "example": true,
+          "description": "If `true`, the row entries for this column cannot contain `nulls`. Defaults to `true`.",
+          "type": "boolean"
+        },
+        "short_description": {
+          "example": "string",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "type"
+      ]
+    },
+    "Context": {
+      "example": {
+        "http_events": [
+          {
+            "process_guid": 10,
+            "traffic": {
+              "destination_host_name": "string",
+              "protocol": 10,
+              "source_ip": "string",
+              "destination_subnet": "string",
+              "destination_ip": "string",
+              "source_subnet": "string",
+              "destination_port": 10,
+              "direction": "incoming",
+              "source_port": 10
+            },
+            "method": "CONNECT",
+            "time": {
+              "start_time": "2016-01-01T01:01:01.000Z",
+              "end_time": "2016-01-01T01:01:01.000Z"
+            },
+            "type": "HTTPEvent",
+            "host": "string",
+            "process_name": "string",
+            "process_id": 10,
+            "process_username": "string",
+            "query": "string",
+            "encrypted": true,
+            "url_port": 10
+          }
+        ],
+        "process_create_events": [
+          {
+            "parent_process_name": "string",
+            "process_guid": 10,
+            "parent_process_guid": 10,
+            "process_disposition": "string",
+            "parent_process_size": 10,
+            "process_size": 10,
+            "time": {
+              "start_time": "2016-01-01T01:01:01.000Z",
+              "end_time": "2016-01-01T01:01:01.000Z"
+            },
+            "parent_process_disposition": "string",
+            "type": "ProcessCreateEvent",
+            "parent_process_username": "string",
+            "parent_process_id": 10,
+            "parent_process_args": "string",
+            "process_name": "string",
+            "process_hash": "string",
+            "process_id": 10,
+            "parent_process_hash": "string",
+            "process_username": "string",
+            "parent_creation_time": "2016-01-01T01:01:01.000Z",
+            "process_args": "string"
+          }
+        ],
+        "registry_delete_events": [
+          {
+            "time": {
+              "start_time": "2016-01-01T01:01:01.000Z",
+              "end_time": "2016-01-01T01:01:01.000Z"
+            },
+            "process_id": 10,
+            "process_name": "string",
+            "process_guid": 10,
+            "process_username": "string",
+            "registry_key": "string",
+            "type": "RegistryDeleteEvent",
+            "registry_value": "string"
+          }
+        ],
+        "file_modify_events": [
+          {
+            "file_name": "string",
+            "process_guid": 10,
+            "time": {
+              "start_time": "2016-01-01T01:01:01.000Z",
+              "end_time": "2016-01-01T01:01:01.000Z"
+            },
+            "type": "FileModifyEvent",
+            "file_path": "string",
+            "process_name": "string",
+            "process_id": 10,
+            "process_username": "string",
+            "failed": false
+          }
+        ],
+        "registry_set_events": [
+          {
+            "process_guid": 10,
+            "registry_data": "string",
+            "time": {
+              "start_time": "2016-01-01T01:01:01.000Z",
+              "end_time": "2016-01-01T01:01:01.000Z"
+            },
+            "type": "RegistrySetEvent",
+            "registry_data_length": 10,
+            "registry_value": "string",
+            "registry_key": "string",
+            "process_name": "string",
+            "process_id": 10,
+            "process_username": "string"
+          }
+        ],
+        "file_create_events": [
+          {
+            "file_name": "string",
+            "process_guid": 10,
+            "time": {
+              "start_time": "2016-01-01T01:01:01.000Z",
+              "end_time": "2016-01-01T01:01:01.000Z"
+            },
+            "type": "FileCreateEvent",
+            "file_path": "string",
+            "process_name": "string",
+            "process_id": 10,
+            "process_username": "string",
+            "failed": false
+          }
+        ],
+        "registry_create_events": [
+          {
+            "time": {
+              "start_time": "2016-01-01T01:01:01.000Z",
+              "end_time": "2016-01-01T01:01:01.000Z"
+            },
+            "process_id": 10,
+            "process_name": "string",
+            "process_guid": 10,
+            "process_username": "string",
+            "registry_key": "string",
+            "type": "RegistryCreateEvent"
+          }
+        ],
+        "library_load_events": [
+          {
+            "time": {
+              "start_time": "2016-01-01T01:01:01.000Z",
+              "end_time": "2016-01-01T01:01:01.000Z"
+            },
+            "process_id": 10,
+            "process_name": "string",
+            "process_guid": 10,
+            "process_username": "string",
+            "type": "LibraryLoadEvent",
+            "dll_library_name": "string",
+            "dll_library_path": "string"
+          }
+        ],
+        "file_move_events": [
+          {
+            "file_name": "string",
+            "process_guid": 10,
+            "time": {
+              "start_time": "2016-01-01T01:01:01.000Z",
+              "end_time": "2016-01-01T01:01:01.000Z"
+            },
+            "type": "FileMoveEvent",
+            "old_name": "string",
+            "file_path": "string",
+            "process_name": "string",
+            "process_id": 10,
+            "process_username": "string",
+            "new_name": "string"
+          }
+        ],
+        "file_delete_events": [
+          {
+            "file_name": "string",
+            "process_guid": 10,
+            "time": {
+              "start_time": "2016-01-01T01:01:01.000Z",
+              "end_time": "2016-01-01T01:01:01.000Z"
+            },
+            "type": "FileDeleteEvent",
+            "file_path": "string",
+            "process_name": "string",
+            "process_id": 10,
+            "process_username": "string",
+            "failed": false
+          }
+        ],
+        "netflow_events": [
+          {
+            "parent_process_name": "string",
+            "byte_count_in": 10,
+            "process_guid": 10,
+            "process_path": "string",
+            "traffic": {
+              "destination_host_name": "string",
+              "protocol": 10,
+              "source_ip": "string",
+              "destination_subnet": "string",
+              "destination_ip": "string",
+              "source_subnet": "string",
+              "destination_port": 10,
+              "direction": "incoming",
+              "source_port": 10
+            },
+            "flow_time": "2016-01-01T01:01:01.000Z",
+            "time": {
+              "start_time": "2016-01-01T01:01:01.000Z",
+              "end_time": "2016-01-01T01:01:01.000Z"
+            },
+            "parent_process_account": "string",
+            "type": "NetflowEvent",
+            "process_account_type": "string",
+            "parent_process_path": "string",
+            "parent_process_id": 10,
+            "parent_process_args": "string",
+            "process_name": "string",
+            "process_account": "string",
+            "parent_process_account_type": "string",
+            "process_hash": "string",
+            "process_id": 10,
+            "parent_process_hash": "string",
+            "process_username": "string",
+            "byte_count_out": 10,
+            "process_args": "string"
+          }
+        ],
+        "registry_rename_events": [
+          {
+            "time": {
+              "start_time": "2016-01-01T01:01:01.000Z",
+              "end_time": "2016-01-01T01:01:01.000Z"
+            },
+            "process_id": 10,
+            "process_name": "string",
+            "process_guid": 10,
+            "process_username": "string",
+            "registry_key": "string",
+            "type": "RegistryRenameEvent",
+            "registry_old_key": "string"
+          }
+        ]
+      },
+      "description": "Context including the event type that best fits the type of the sighting.",
+      "type": "object",
+      "properties": {
+        "http_events": {
+          "example": [
+            {
+              "process_guid": 10,
+              "traffic": {
+                "destination_host_name": "string",
+                "protocol": 10,
+                "source_ip": "string",
+                "destination_subnet": "string",
+                "destination_ip": "string",
+                "source_subnet": "string",
+                "destination_port": 10,
+                "direction": "incoming",
+                "source_port": 10
+              },
+              "method": "CONNECT",
+              "time": {
+                "start_time": "2016-01-01T01:01:01.000Z",
+                "end_time": "2016-01-01T01:01:01.000Z"
+              },
+              "type": "HTTPEvent",
+              "host": "string",
+              "process_name": "string",
+              "process_id": 10,
+              "process_username": "string",
+              "query": "string",
+              "encrypted": true,
+              "url_port": 10
+            }
+          ],
+          "description": "a list of `HTTPType`",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/HTTPType"
+          }
+        },
+        "process_create_events": {
+          "example": [
+            {
+              "parent_process_name": "string",
+              "process_guid": 10,
+              "parent_process_guid": 10,
+              "process_disposition": "string",
+              "parent_process_size": 10,
+              "process_size": 10,
+              "time": {
+                "start_time": "2016-01-01T01:01:01.000Z",
+                "end_time": "2016-01-01T01:01:01.000Z"
+              },
+              "parent_process_disposition": "string",
+              "type": "ProcessCreateEvent",
+              "parent_process_username": "string",
+              "parent_process_id": 10,
+              "parent_process_args": "string",
+              "process_name": "string",
+              "process_hash": "string",
+              "process_id": 10,
+              "parent_process_hash": "string",
+              "process_username": "string",
+              "parent_creation_time": "2016-01-01T01:01:01.000Z",
+              "process_args": "string"
+            }
+          ],
+          "description": "a list of `ProcessCreate`",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProcessCreateType"
+          }
+        },
+        "registry_delete_events": {
+          "example": [
+            {
+              "time": {
+                "start_time": "2016-01-01T01:01:01.000Z",
+                "end_time": "2016-01-01T01:01:01.000Z"
+              },
+              "process_id": 10,
+              "process_name": "string",
+              "process_guid": 10,
+              "process_username": "string",
+              "registry_key": "string",
+              "type": "RegistryDeleteEvent",
+              "registry_value": "string"
+            }
+          ],
+          "description": "a list of `RegistryDeleteType`",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RegistryDeleteType"
+          }
+        },
+        "file_modify_events": {
+          "example": [
+            {
+              "file_name": "string",
+              "process_guid": 10,
+              "time": {
+                "start_time": "2016-01-01T01:01:01.000Z",
+                "end_time": "2016-01-01T01:01:01.000Z"
+              },
+              "type": "FileModifyEvent",
+              "file_path": "string",
+              "process_name": "string",
+              "process_id": 10,
+              "process_username": "string",
+              "failed": false
+            }
+          ],
+          "description": "a list of `FileModifyType`",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FileModifyType"
+          }
+        },
+        "registry_set_events": {
+          "example": [
+            {
+              "process_guid": 10,
+              "registry_data": "string",
+              "time": {
+                "start_time": "2016-01-01T01:01:01.000Z",
+                "end_time": "2016-01-01T01:01:01.000Z"
+              },
+              "type": "RegistrySetEvent",
+              "registry_data_length": 10,
+              "registry_value": "string",
+              "registry_key": "string",
+              "process_name": "string",
+              "process_id": 10,
+              "process_username": "string"
+            }
+          ],
+          "description": "a list of `RegistrySetType`",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RegistrySetType"
+          }
+        },
+        "file_create_events": {
+          "example": [
+            {
+              "file_name": "string",
+              "process_guid": 10,
+              "time": {
+                "start_time": "2016-01-01T01:01:01.000Z",
+                "end_time": "2016-01-01T01:01:01.000Z"
+              },
+              "type": "FileCreateEvent",
+              "file_path": "string",
+              "process_name": "string",
+              "process_id": 10,
+              "process_username": "string",
+              "failed": false
+            }
+          ],
+          "description": "a list of `FileCreateType`",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FileCreateType"
+          }
+        },
+        "registry_create_events": {
+          "example": [
+            {
+              "time": {
+                "start_time": "2016-01-01T01:01:01.000Z",
+                "end_time": "2016-01-01T01:01:01.000Z"
+              },
+              "process_id": 10,
+              "process_name": "string",
+              "process_guid": 10,
+              "process_username": "string",
+              "registry_key": "string",
+              "type": "RegistryCreateEvent"
+            }
+          ],
+          "description": "a list of `RegistryCreateType`",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RegistryCreateType"
+          }
+        },
+        "library_load_events": {
+          "example": [
+            {
+              "time": {
+                "start_time": "2016-01-01T01:01:01.000Z",
+                "end_time": "2016-01-01T01:01:01.000Z"
+              },
+              "process_id": 10,
+              "process_name": "string",
+              "process_guid": 10,
+              "process_username": "string",
+              "type": "LibraryLoadEvent",
+              "dll_library_name": "string",
+              "dll_library_path": "string"
+            }
+          ],
+          "description": "a list of `LibraryLoadType`",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LibraryLoadType"
+          }
+        },
+        "file_move_events": {
+          "example": [
+            {
+              "file_name": "string",
+              "process_guid": 10,
+              "time": {
+                "start_time": "2016-01-01T01:01:01.000Z",
+                "end_time": "2016-01-01T01:01:01.000Z"
+              },
+              "type": "FileMoveEvent",
+              "old_name": "string",
+              "file_path": "string",
+              "process_name": "string",
+              "process_id": 10,
+              "process_username": "string",
+              "new_name": "string"
+            }
+          ],
+          "description": "a list of `FileMoveType`",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FileMoveType"
+          }
+        },
+        "file_delete_events": {
+          "example": [
+            {
+              "file_name": "string",
+              "process_guid": 10,
+              "time": {
+                "start_time": "2016-01-01T01:01:01.000Z",
+                "end_time": "2016-01-01T01:01:01.000Z"
+              },
+              "type": "FileDeleteEvent",
+              "file_path": "string",
+              "process_name": "string",
+              "process_id": 10,
+              "process_username": "string",
+              "failed": false
+            }
+          ],
+          "description": "a list of `FileDeleteType`",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FileDeleteType"
+          }
+        },
+        "netflow_events": {
+          "example": [
+            {
+              "parent_process_name": "string",
+              "byte_count_in": 10,
+              "process_guid": 10,
+              "process_path": "string",
+              "traffic": {
+                "destination_host_name": "string",
+                "protocol": 10,
+                "source_ip": "string",
+                "destination_subnet": "string",
+                "destination_ip": "string",
+                "source_subnet": "string",
+                "destination_port": 10,
+                "direction": "incoming",
+                "source_port": 10
+              },
+              "flow_time": "2016-01-01T01:01:01.000Z",
+              "time": {
+                "start_time": "2016-01-01T01:01:01.000Z",
+                "end_time": "2016-01-01T01:01:01.000Z"
+              },
+              "parent_process_account": "string",
+              "type": "NetflowEvent",
+              "process_account_type": "string",
+              "parent_process_path": "string",
+              "parent_process_id": 10,
+              "parent_process_args": "string",
+              "process_name": "string",
+              "process_account": "string",
+              "parent_process_account_type": "string",
+              "process_hash": "string",
+              "process_id": 10,
+              "parent_process_hash": "string",
+              "process_username": "string",
+              "byte_count_out": 10,
+              "process_args": "string"
+            }
+          ],
+          "description": "a list of `NetflowType`",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NetflowType"
+          }
+        },
+        "registry_rename_events": {
+          "example": [
+            {
+              "time": {
+                "start_time": "2016-01-01T01:01:01.000Z",
+                "end_time": "2016-01-01T01:01:01.000Z"
+              },
+              "process_id": 10,
+              "process_name": "string",
+              "process_guid": 10,
+              "process_username": "string",
+              "registry_key": "string",
+              "type": "RegistryRenameEvent",
+              "registry_old_key": "string"
+            }
+          ],
+          "description": "a list of `RegistryRenameType`",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RegistryRenameType"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "EnvelopedActionResult": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/ActionResult"
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ErrorMessage"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "EnvelopedActions": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Action"
+          }
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ErrorMessage"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "ErrorMessage": {
+      "type": "object",
+      "properties": {
+        "module_instance_id": {
+          "type": "string"
+        },
+        "module_type_id": {
+          "type": "string"
+        },
+        "module_instance_state": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "fatal",
+            "warning",
+            "error"
+          ]
+        },
+        "module": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "module_instance_id",
+        "module_type_id",
+        "code",
+        "message",
+        "type"
+      ]
+    },
+    "ExternalReference": {
+      "example": {
+        "source_name": "string",
+        "description": "string",
+        "url": "string",
+        "hashes": [
+          "string"
+        ],
+        "external_id": "string"
+      },
+      "description": "External references are used to describe pointers to information represented outside of CTIM. For example, a Malware object could use an external reference to indicate an ID for that malware in an external database or a report could use references to represent source material.",
+      "type": "object",
+      "properties": {
+        "source_name": {
+          "example": "string",
+          "description": "The source within which the external-reference is defined (system, registry, organization, etc.)",
+          "type": "string"
+        },
+        "description": {
+          "example": "string",
+          "description": "Markdown string with at most 5000 characters.",
+          "type": "string"
+        },
+        "url": {
+          "example": "string",
+          "description": "A URL reference to an external resource.",
+          "type": "string"
+        },
+        "hashes": {
+          "example": [
+            "string"
+          ],
+          "description": "Specifies a dictionary of hashes for the contents of the url.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "external_id": {
+          "example": "string",
+          "description": "An identifier for the external reference content.",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "source_name"
+      ]
+    },
+    "FileCreateType": {
+      "example": {
+        "file_name": "string",
+        "process_guid": 10,
+        "time": {
+          "start_time": "2016-01-01T01:01:01.000Z",
+          "end_time": "2016-01-01T01:01:01.000Z"
+        },
+        "type": "FileCreateEvent",
+        "file_path": "string",
+        "process_name": "string",
+        "process_id": 10,
+        "process_username": "string",
+        "failed": false
+      },
+      "type": "object",
+      "properties": {
+        "file_name": {
+          "example": "string",
+          "description": "String with at most 1024 characters.",
+          "type": "string"
+        },
+        "process_guid": {
+          "example": 10,
+          "type": "integer",
+          "format": "int64"
+        },
+        "time": {
+          "$ref": "#/definitions/ObservedTime"
+        },
+        "type": {
+          "example": "FileCreateEvent",
+          "type": "string",
+          "enum": [
+            "FileCreateEvent"
+          ]
+        },
+        "file_path": {
+          "example": "string",
+          "description": "String with at most 2048 characters.",
+          "type": "string"
+        },
+        "process_name": {
+          "example": "string",
+          "description": "String with at most 1024 characters.",
+          "type": "string"
+        },
+        "process_id": {
+          "example": 10,
+          "type": "integer",
+          "format": "int64"
+        },
+        "process_username": {
+          "example": "string",
+          "description": "String with at most 1024 characters.",
+          "type": "string"
+        },
+        "failed": {
+          "example": false,
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "file_name",
+        "time",
+        "type",
+        "file_path",
+        "process_name",
+        "process_id"
+      ]
+    },
+    "FileDeleteType": {
+      "example": {
+        "file_name": "string",
+        "process_guid": 10,
+        "time": {
+          "start_time": "2016-01-01T01:01:01.000Z",
+          "end_time": "2016-01-01T01:01:01.000Z"
+        },
+        "type": "FileDeleteEvent",
+        "file_path": "string",
+        "process_name": "string",
+        "process_id": 10,
+        "process_username": "string",
+        "failed": false
+      },
+      "type": "object",
+      "properties": {
+        "file_name": {
+          "example": "string",
+          "description": "String with at most 1024 characters.",
+          "type": "string"
+        },
+        "process_guid": {
+          "example": 10,
+          "type": "integer",
+          "format": "int64"
+        },
+        "time": {
+          "$ref": "#/definitions/ObservedTime"
+        },
+        "type": {
+          "example": "FileDeleteEvent",
+          "type": "string",
+          "enum": [
+            "FileDeleteEvent"
+          ]
+        },
+        "file_path": {
+          "example": "string",
+          "description": "String with at most 2048 characters.",
+          "type": "string"
+        },
+        "process_name": {
+          "example": "string",
+          "description": "String with at most 1024 characters.",
+          "type": "string"
+        },
+        "process_id": {
+          "example": 10,
+          "type": "integer",
+          "format": "int64"
+        },
+        "process_username": {
+          "example": "string",
+          "description": "String with at most 1024 characters.",
+          "type": "string"
+        },
+        "failed": {
+          "example": false,
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "file_name",
+        "time",
+        "type",
+        "file_path",
+        "process_name",
+        "process_id"
+      ]
+    },
+    "FileModifyType": {
+      "example": {
+        "file_name": "string",
+        "process_guid": 10,
+        "time": {
+          "start_time": "2016-01-01T01:01:01.000Z",
+          "end_time": "2016-01-01T01:01:01.000Z"
+        },
+        "type": "FileModifyEvent",
+        "file_path": "string",
+        "process_name": "string",
+        "process_id": 10,
+        "process_username": "string",
+        "failed": false
+      },
+      "type": "object",
+      "properties": {
+        "file_name": {
+          "example": "string",
+          "description": "String with at most 1024 characters.",
+          "type": "string"
+        },
+        "process_guid": {
+          "example": 10,
+          "type": "integer",
+          "format": "int64"
+        },
+        "time": {
+          "$ref": "#/definitions/ObservedTime"
+        },
+        "type": {
+          "example": "FileModifyEvent",
+          "type": "string",
+          "enum": [
+            "FileModifyEvent"
+          ]
+        },
+        "file_path": {
+          "example": "string",
+          "description": "String with at most 2048 characters.",
+          "type": "string"
+        },
+        "process_name": {
+          "example": "string",
+          "description": "String with at most 1024 characters.",
+          "type": "string"
+        },
+        "process_id": {
+          "example": 10,
+          "type": "integer",
+          "format": "int64"
+        },
+        "process_username": {
+          "example": "string",
+          "description": "String with at most 1024 characters.",
+          "type": "string"
+        },
+        "failed": {
+          "example": false,
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "file_name",
+        "time",
+        "type",
+        "file_path",
+        "process_name",
+        "process_id"
+      ]
+    },
+    "FileMoveType": {
+      "example": {
+        "file_name": "string",
+        "process_guid": 10,
+        "time": {
+          "start_time": "2016-01-01T01:01:01.000Z",
+          "end_time": "2016-01-01T01:01:01.000Z"
+        },
+        "type": "FileMoveEvent",
+        "old_name": "string",
+        "file_path": "string",
+        "process_name": "string",
+        "process_id": 10,
+        "process_username": "string",
+        "new_name": "string"
+      },
+      "type": "object",
+      "properties": {
+        "file_name": {
+          "example": "string",
+          "description": "String with at most 1024 characters.",
+          "type": "string"
+        },
+        "process_guid": {
+          "example": 10,
+          "type": "integer",
+          "format": "int64"
+        },
+        "time": {
+          "$ref": "#/definitions/ObservedTime"
+        },
+        "type": {
+          "example": "FileMoveEvent",
+          "type": "string",
+          "enum": [
+            "FileMoveEvent"
+          ]
+        },
+        "old_name": {
+          "example": "string",
+          "description": "String with at most 1024 characters.",
+          "type": "string"
+        },
+        "file_path": {
+          "example": "string",
+          "description": "String with at most 2048 characters.",
+          "type": "string"
+        },
+        "process_name": {
+          "example": "string",
+          "description": "String with at most 1024 characters.",
+          "type": "string"
+        },
+        "process_id": {
+          "example": 10,
+          "type": "integer",
+          "format": "int64"
+        },
+        "process_username": {
+          "example": "string",
+          "description": "String with at most 1024 characters.",
+          "type": "string"
+        },
+        "new_name": {
+          "example": "string",
+          "description": "String with at most 1024 characters.",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "file_name",
+        "time",
+        "type",
+        "old_name",
+        "file_path",
+        "process_name",
+        "process_id",
+        "new_name"
+      ]
+    },
+    "HTTPType": {
+      "example": {
+        "process_guid": 10,
+        "traffic": {
+          "destination_host_name": "string",
+          "protocol": 10,
+          "source_ip": "string",
+          "destination_subnet": "string",
+          "destination_ip": "string",
+          "source_subnet": "string",
+          "destination_port": 10,
+          "direction": "incoming",
+          "source_port": 10
+        },
+        "method": "CONNECT",
+        "time": {
+          "start_time": "2016-01-01T01:01:01.000Z",
+          "end_time": "2016-01-01T01:01:01.000Z"
+        },
+        "type": "HTTPEvent",
+        "host": "string",
+        "process_name": "string",
+        "process_id": 10,
+        "process_username": "string",
+        "query": "string",
+        "encrypted": true,
+        "url_port": 10
+      },
+      "type": "object",
+      "properties": {
+        "process_guid": {
+          "example": 10,
+          "type": "integer",
+          "format": "int64"
+        },
+        "traffic": {
+          "$ref": "#/definitions/Traffic"
+        },
+        "method": {
+          "example": "CONNECT",
+          "type": "string",
+          "enum": [
+            "OPTIONS",
+            "PATCH",
+            "TRACE",
+            "HEAD",
+            "POST",
+            "CONNECT",
+            "GET",
+            "PUT"
+          ]
+        },
+        "time": {
+          "$ref": "#/definitions/ObservedTime"
+        },
+        "type": {
+          "example": "HTTPEvent",
+          "type": "string",
+          "enum": [
+            "HTTPEvent"
+          ]
+        },
+        "host": {
+          "example": "string",
+          "description": "String with at most 1024 characters.",
+          "type": "string"
+        },
+        "process_name": {
+          "example": "string",
+          "description": "String with at most 1024 characters.",
+          "type": "string"
+        },
+        "process_id": {
+          "example": 10,
+          "type": "integer",
+          "format": "int64"
+        },
+        "process_username": {
+          "example": "string",
+          "description": "String with at most 1024 characters.",
+          "type": "string"
+        },
+        "query": {
+          "example": "string",
+          "description": "String with at most 5000 characters.",
+          "type": "string"
+        },
+        "encrypted": {
+          "example": true,
+          "type": "boolean"
+        },
+        "url_port": {
+          "example": 10,
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "traffic",
+        "time",
+        "type",
+        "host",
+        "process_name",
+        "process_id"
+      ]
+    },
+    "IdentitySpecification": {
+      "example": {
+        "type": "endpoint",
+        "observables": [
+          {
+            "value": "1.2.3.4",
+            "type": "ip"
+          }
+        ],
+        "observed_time": {
+          "start_time": "2016-01-01T01:01:01.000Z",
+          "end_time": "2016-01-01T01:01:01.000Z"
+        },
+        "os": "string"
+      },
+      "description": "Describes the target of the sighting and contains identifying observables for the target.",
+      "type": "object",
+      "properties": {
+        "type": {
+          "example": "endpoint",
+          "description": "The sensor/actuator name that best fits a device.",
+          "type": "string"
+        },
+        "observables": {
+          "example": [
+            {
+              "value": "1.2.3.4",
+              "type": "ip"
+            }
+          ],
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Observable"
+          }
+        },
+        "observed_time": {
+          "$ref": "#/definitions/ObservedTime"
+        },
+        "os": {
+          "example": "string",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "observables",
+        "observed_time"
+      ]
+    },
+    "LibraryLoadType": {
+      "example": {
+        "time": {
+          "start_time": "2016-01-01T01:01:01.000Z",
+          "end_time": "2016-01-01T01:01:01.000Z"
+        },
+        "process_id": 10,
+        "process_name": "string",
+        "process_guid": 10,
+        "process_username": "string",
+        "type": "LibraryLoadEvent",
+        "dll_library_name": "string",
+        "dll_library_path": "string"
+      },
+      "type": "object",
+      "properties": {
+        "time": {
+          "$ref": "#/definitions/ObservedTime"
+        },
+        "process_id": {
+          "example": 10,
+          "type": "integer",
+          "format": "int64"
+        },
+        "process_name": {
+          "example": "string",
+          "description": "String with at most 1024 characters.",
+          "type": "string"
+        },
+        "process_guid": {
+          "example": 10,
+          "type": "integer",
+          "format": "int64"
+        },
+        "process_username": {
+          "example": "string",
+          "description": "String with at most 1024 characters.",
+          "type": "string"
+        },
+        "type": {
+          "example": "LibraryLoadEvent",
+          "type": "string",
+          "enum": [
+            "LibraryLoadEvent"
+          ]
+        },
+        "dll_library_name": {
+          "example": "string",
+          "description": "String with at most 1024 characters.",
+          "type": "string"
+        },
+        "dll_library_path": {
+          "example": "string",
+          "description": "String with at most 2048 characters.",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "time",
+        "process_id",
+        "process_name",
+        "type",
+        "dll_library_name",
+        "dll_library_path"
+      ]
+    },
+    "NetflowType": {
+      "example": {
+        "parent_process_name": "string",
+        "byte_count_in": 10,
+        "process_guid": 10,
+        "process_path": "string",
+        "traffic": {
+          "destination_host_name": "string",
+          "protocol": 10,
+          "source_ip": "string",
+          "destination_subnet": "string",
+          "destination_ip": "string",
+          "source_subnet": "string",
+          "destination_port": 10,
+          "direction": "incoming",
+          "source_port": 10
+        },
+        "flow_time": "2016-01-01T01:01:01.000Z",
+        "time": {
+          "start_time": "2016-01-01T01:01:01.000Z",
+          "end_time": "2016-01-01T01:01:01.000Z"
+        },
+        "parent_process_account": "string",
+        "type": "NetflowEvent",
+        "process_account_type": "string",
+        "parent_process_path": "string",
+        "parent_process_id": 10,
+        "parent_process_args": "string",
+        "process_name": "string",
+        "process_account": "string",
+        "parent_process_account_type": "string",
+        "process_hash": "string",
+        "process_id": 10,
+        "parent_process_hash": "string",
+        "process_username": "string",
+        "byte_count_out": 10,
+        "process_args": "string"
+      },
+      "type": "object",
+      "properties": {
+        "parent_process_name": {
+          "example": "string",
+          "description": "String with at most 1024 characters.",
+          "type": "string"
+        },
+        "byte_count_in": {
+          "example": 10,
+          "type": "integer",
+          "format": "int64"
+        },
+        "process_guid": {
+          "example": 10,
+          "type": "integer",
+          "format": "int64"
+        },
+        "process_path": {
+          "example": "string",
+          "description": "String with at most 1024 characters.",
+          "type": "string"
+        },
+        "traffic": {
+          "$ref": "#/definitions/Traffic"
+        },
+        "flow_time": {
+          "example": "2016-01-01T01:01:01.000Z",
+          "description": "Schema definition for all date or timestamp values.  Serialized as a string, the field should follow the rules of the [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) standard.",
+          "type": "string",
+          "format": "date-time"
+        },
+        "time": {
+          "$ref": "#/definitions/ObservedTime"
+        },
+        "parent_process_account": {
+          "example": "string",
+          "description": "String with at most 1024 characters.",
+          "type": "string"
+        },
+        "type": {
+          "example": "NetflowEvent",
+          "type": "string",
+          "enum": [
+            "NetflowEvent"
+          ]
+        },
+        "process_account_type": {
+          "example": "string",
+          "description": "String with at most 1024 characters.",
+          "type": "string"
+        },
+        "parent_process_path": {
+          "example": "string",
+          "description": "String with at most 1024 characters.",
+          "type": "string"
+        },
+        "parent_process_id": {
+          "example": 10,
+          "type": "integer",
+          "format": "int64"
+        },
+        "parent_process_args": {
+          "example": "string",
+          "description": "String with at most 1024 characters.",
+          "type": "string"
+        },
+        "process_name": {
+          "example": "string",
+          "description": "String with at most 1024 characters.",
+          "type": "string"
+        },
+        "process_account": {
+          "example": "string",
+          "description": "String with at most 1024 characters.",
+          "type": "string"
+        },
+        "parent_process_account_type": {
+          "example": "string",
+          "description": "String with at most 1024 characters.",
+          "type": "string"
+        },
+        "process_hash": {
+          "example": "string",
+          "description": "String with at most 1024 characters.",
+          "type": "string"
+        },
+        "process_id": {
+          "example": 10,
+          "type": "integer",
+          "format": "int64"
+        },
+        "parent_process_hash": {
+          "example": "string",
+          "description": "String with at most 1024 characters.",
+          "type": "string"
+        },
+        "process_username": {
+          "example": "string",
+          "description": "String with at most 1024 characters.",
+          "type": "string"
+        },
+        "byte_count_out": {
+          "example": 10,
+          "type": "integer",
+          "format": "int64"
+        },
+        "process_args": {
+          "example": "string",
+          "description": "String with at most 1024 characters.",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "traffic",
+        "time",
+        "type",
+        "process_name",
+        "process_id"
+      ]
+    },
+    "Observable": {
+      "example": {
+        "value": "1.2.3.4",
+        "type": "ip"
+      },
+      "description": "A simple, atomic value which has a consistent identity, and is stable enough to be attributed an intent or nature.  This is the classic 'indicator' which might appear in a data feed of bad IPs, or bad Domains.  These do not exist as objects within the CTIA storage model, so you never create an observable.",
+      "type": "object",
+      "properties": {
+        "value": {
+          "example": "1.2.3.4",
+          "description": "The value of the observable.",
+          "type": "string"
+        },
+        "type": {
+          "example": "ip",
+          "description": "The type of observable.",
+          "type": "string",
+          "enum": [
+            "file_path",
+            "mac_address",
+            "trend_micro_id",
+            "cybereason_id",
+            "process_args",
+            "s1_agent_id",
+            "device",
+            "hostname",
+            "certificate_common_name",
+            "serial_number",
+            "meraki_network_id",
+            "url",
+            "certificate_serial",
+            "meraki_org_id",
+            "cisco_cm_id",
+            "registry_key",
+            "process_path",
+            "darktrace_id",
+            "process_username",
+            "cortex_agent_id",
+            "orbital_node_id",
+            "process_uid",
+            "ngfw_name",
+            "user",
+            "certificate_issuer",
+            "ipv6",
+            "email",
+            "cisco_uc_id",
+            "cvm_id",
+            "sha256",
+            "crowdstrike_id",
+            "google_cloud_id",
+            "acudid",
+            "sha1",
+            "registry_name",
+            "md5",
+            "service_now_id",
+            "ip",
+            "domain",
+            "email_subject",
+            "imei",
+            "ngfw_id",
+            "amp_computer_guid",
+            "ms_machine_id",
+            "secure_access_id",
+            "mutex",
+            "processor_id",
+            "swc_device_id",
+            "registry_path",
+            "odns_identity",
+            "odns_identity_label",
+            "cisco_mid",
+            "process_name",
+            "pki_serial",
+            "meraki_node_sn",
+            "email_messageid",
+            "imsi",
+            "user_agent",
+            "process_hash",
+            "file_name"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "value",
+        "type"
+      ]
+    },
+    "ObservedRelation": {
+      "example": {
+        "origin": "string",
+        "origin_uri": "string",
+        "relation": "Allocated",
+        "relation_info": {
+          "keyword": "anything"
+        },
+        "source": {
+          "value": "1.2.3.4",
+          "type": "ip"
+        },
+        "related": {
+          "value": "1.2.3.4",
+          "type": "ip"
+        }
+      },
+      "description": "A relation inside a Sighting.",
+      "type": "object",
+      "properties": {
+        "origin": {
+          "example": "string",
+          "type": "string"
+        },
+        "origin_uri": {
+          "example": "string",
+          "description": "A URI",
+          "type": "string"
+        },
+        "relation": {
+          "example": "Allocated",
+          "type": "string"
+        },
+        "relation_info": {
+          "$ref": "#/definitions/SightingRelationsRelationInfo"
+        },
+        "source": {
+          "$ref": "#/definitions/Observable"
+        },
+        "related": {
+          "$ref": "#/definitions/Observable"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "origin",
+        "relation",
+        "source",
+        "related"
+      ]
+    },
+    "ObservedTime": {
+      "example": {
+        "start_time": "2016-01-01T01:01:01.000Z",
+        "end_time": "2016-01-01T01:01:01.000Z"
+      },
+      "description": "Period of time when a cyber observation is valid. `start_time` must come before `end_time` (if specified).",
+      "type": "object",
+      "properties": {
+        "start_time": {
+          "example": "2016-01-01T01:01:01.000Z",
+          "description": "Time of the observation. If the observation was made over a period of time, than this field indicates the start of that period.",
+          "type": "string",
+          "format": "date-time"
+        },
+        "end_time": {
+          "example": "2016-01-01T01:01:01.000Z",
+          "description": "If the observation was made over a period of time, than this field indicates the end of that period.",
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "start_time"
+      ]
+    },
+    "ProcessCreateType": {
+      "example": {
+        "parent_process_name": "string",
+        "process_guid": 10,
+        "parent_process_guid": 10,
+        "process_disposition": "string",
+        "parent_process_size": 10,
+        "process_size": 10,
+        "time": {
+          "start_time": "2016-01-01T01:01:01.000Z",
+          "end_time": "2016-01-01T01:01:01.000Z"
+        },
+        "parent_process_disposition": "string",
+        "type": "ProcessCreateEvent",
+        "parent_process_username": "string",
+        "parent_process_id": 10,
+        "parent_process_args": "string",
+        "process_name": "string",
+        "process_hash": "string",
+        "process_id": 10,
+        "parent_process_hash": "string",
+        "process_username": "string",
+        "parent_creation_time": "2016-01-01T01:01:01.000Z",
+        "process_args": "string"
+      },
+      "type": "object",
+      "properties": {
+        "parent_process_name": {
+          "example": "string",
+          "description": "String with at most 1024 characters.",
+          "type": "string"
+        },
+        "process_guid": {
+          "example": 10,
+          "type": "integer",
+          "format": "int64"
+        },
+        "parent_process_guid": {
+          "example": 10,
+          "type": "integer",
+          "format": "int64"
+        },
+        "process_disposition": {
+          "example": "string",
+          "description": "String with at most 1024 characters.",
+          "type": "string"
+        },
+        "parent_process_size": {
+          "example": 10,
+          "type": "integer",
+          "format": "int64"
+        },
+        "process_size": {
+          "example": 10,
+          "type": "integer",
+          "format": "int64"
+        },
+        "time": {
+          "$ref": "#/definitions/ObservedTime"
+        },
+        "parent_process_disposition": {
+          "example": "string",
+          "description": "String with at most 1024 characters.",
+          "type": "string"
+        },
+        "type": {
+          "example": "ProcessCreateEvent",
+          "type": "string",
+          "enum": [
+            "ProcessCreateEvent"
+          ]
+        },
+        "parent_process_username": {
+          "example": "string",
+          "description": "String with at most 1024 characters.",
+          "type": "string"
+        },
+        "parent_process_id": {
+          "example": 10,
+          "type": "integer",
+          "format": "int64"
+        },
+        "parent_process_args": {
+          "example": "string",
+          "description": "String with at most 2048 characters.",
+          "type": "string"
+        },
+        "process_name": {
+          "example": "string",
+          "description": "String with at most 1024 characters.",
+          "type": "string"
+        },
+        "process_hash": {
+          "example": "string",
+          "description": "String with at most 2048 characters.",
+          "type": "string"
+        },
+        "process_id": {
+          "example": 10,
+          "type": "integer",
+          "format": "int64"
+        },
+        "parent_process_hash": {
+          "example": "string",
+          "description": "String with at most 2048 characters.",
+          "type": "string"
+        },
+        "process_username": {
+          "example": "string",
+          "description": "String with at most 1024 characters.",
+          "type": "string"
+        },
+        "parent_creation_time": {
+          "example": "2016-01-01T01:01:01.000Z",
+          "description": "Schema definition for all date or timestamp values.  Serialized as a string, the field should follow the rules of the [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) standard.",
+          "type": "string",
+          "format": "date-time"
+        },
+        "process_args": {
+          "example": "string",
+          "description": "String with at most 2048 characters.",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "time",
+        "type",
+        "process_name",
+        "process_id"
+      ]
+    },
+    "RegistryCreateType": {
+      "example": {
+        "time": {
+          "start_time": "2016-01-01T01:01:01.000Z",
+          "end_time": "2016-01-01T01:01:01.000Z"
+        },
+        "process_id": 10,
+        "process_name": "string",
+        "process_guid": 10,
+        "process_username": "string",
+        "registry_key": "string",
+        "type": "RegistryCreateEvent"
+      },
+      "type": "object",
+      "properties": {
+        "time": {
+          "$ref": "#/definitions/ObservedTime"
+        },
+        "process_id": {
+          "example": 10,
+          "type": "integer",
+          "format": "int64"
+        },
+        "process_name": {
+          "example": "string",
+          "description": "String with at most 1024 characters.",
+          "type": "string"
+        },
+        "process_guid": {
+          "example": 10,
+          "type": "integer",
+          "format": "int64"
+        },
+        "process_username": {
+          "example": "string",
+          "description": "String with at most 1024 characters.",
+          "type": "string"
+        },
+        "registry_key": {
+          "example": "string",
+          "description": "String with at most 1024 characters.",
+          "type": "string"
+        },
+        "type": {
+          "example": "RegistryCreateEvent",
+          "type": "string",
+          "enum": [
+            "RegistryCreateEvent"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "time",
+        "process_id",
+        "process_name",
+        "registry_key",
+        "type"
+      ]
+    },
+    "RegistryDeleteType": {
+      "example": {
+        "time": {
+          "start_time": "2016-01-01T01:01:01.000Z",
+          "end_time": "2016-01-01T01:01:01.000Z"
+        },
+        "process_id": 10,
+        "process_name": "string",
+        "process_guid": 10,
+        "process_username": "string",
+        "registry_key": "string",
+        "type": "RegistryDeleteEvent",
+        "registry_value": "string"
+      },
+      "type": "object",
+      "properties": {
+        "time": {
+          "$ref": "#/definitions/ObservedTime"
+        },
+        "process_id": {
+          "example": 10,
+          "type": "integer",
+          "format": "int64"
+        },
+        "process_name": {
+          "example": "string",
+          "description": "String with at most 1024 characters.",
+          "type": "string"
+        },
+        "process_guid": {
+          "example": 10,
+          "type": "integer",
+          "format": "int64"
+        },
+        "process_username": {
+          "example": "string",
+          "description": "String with at most 1024 characters.",
+          "type": "string"
+        },
+        "registry_key": {
+          "example": "string",
+          "description": "String with at most 1024 characters.",
+          "type": "string"
+        },
+        "type": {
+          "example": "RegistryDeleteEvent",
+          "type": "string",
+          "enum": [
+            "RegistryDeleteEvent"
+          ]
+        },
+        "registry_value": {
+          "example": "string",
+          "description": "String with at most 2048 characters.",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "time",
+        "process_id",
+        "process_name",
+        "registry_key",
+        "type"
+      ]
+    },
+    "RegistryRenameType": {
+      "example": {
+        "time": {
+          "start_time": "2016-01-01T01:01:01.000Z",
+          "end_time": "2016-01-01T01:01:01.000Z"
+        },
+        "process_id": 10,
+        "process_name": "string",
+        "process_guid": 10,
+        "process_username": "string",
+        "registry_key": "string",
+        "type": "RegistryRenameEvent",
+        "registry_old_key": "string"
+      },
+      "type": "object",
+      "properties": {
+        "time": {
+          "$ref": "#/definitions/ObservedTime"
+        },
+        "process_id": {
+          "example": 10,
+          "type": "integer",
+          "format": "int64"
+        },
+        "process_name": {
+          "example": "string",
+          "description": "String with at most 1024 characters.",
+          "type": "string"
+        },
+        "process_guid": {
+          "example": 10,
+          "type": "integer",
+          "format": "int64"
+        },
+        "process_username": {
+          "example": "string",
+          "description": "String with at most 1024 characters.",
+          "type": "string"
+        },
+        "registry_key": {
+          "example": "string",
+          "description": "String with at most 1024 characters.",
+          "type": "string"
+        },
+        "type": {
+          "example": "RegistryRenameEvent",
+          "type": "string",
+          "enum": [
+            "RegistryRenameEvent"
+          ]
+        },
+        "registry_old_key": {
+          "example": "string",
+          "description": "String with at most 1024 characters.",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "time",
+        "process_id",
+        "process_name",
+        "registry_key",
+        "type",
+        "registry_old_key"
+      ]
+    },
+    "RegistrySetType": {
+      "example": {
+        "process_guid": 10,
+        "registry_data": "string",
+        "time": {
+          "start_time": "2016-01-01T01:01:01.000Z",
+          "end_time": "2016-01-01T01:01:01.000Z"
+        },
+        "type": "RegistrySetEvent",
+        "registry_data_length": 10,
+        "registry_value": "string",
+        "registry_key": "string",
+        "process_name": "string",
+        "process_id": 10,
+        "process_username": "string"
+      },
+      "type": "object",
+      "properties": {
+        "process_guid": {
+          "example": 10,
+          "type": "integer",
+          "format": "int64"
+        },
+        "registry_data": {
+          "example": "string",
+          "description": "String with at most 5000 characters.",
+          "type": "string"
+        },
+        "time": {
+          "$ref": "#/definitions/ObservedTime"
+        },
+        "type": {
+          "example": "RegistrySetEvent",
+          "type": "string",
+          "enum": [
+            "RegistrySetEvent"
+          ]
+        },
+        "registry_data_length": {
+          "example": 10,
+          "type": "integer",
+          "format": "int64"
+        },
+        "registry_value": {
+          "example": "string",
+          "description": "String with at most 2048 characters.",
+          "type": "string"
+        },
+        "registry_key": {
+          "example": "string",
+          "description": "String with at most 1024 characters.",
+          "type": "string"
+        },
+        "process_name": {
+          "example": "string",
+          "description": "String with at most 1024 characters.",
+          "type": "string"
+        },
+        "process_id": {
+          "example": 10,
+          "type": "integer",
+          "format": "int64"
+        },
+        "process_username": {
+          "example": "string",
+          "description": "String with at most 1024 characters.",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "time",
+        "type",
+        "registry_value",
+        "registry_key",
+        "process_name",
+        "process_id"
+      ]
+    },
+    "SensorCoordinates": {
+      "example": {
+        "type": "endpoint",
+        "observables": [
+          {
+            "value": "1.2.3.4",
+            "type": "ip"
+          }
+        ],
+        "os": "string"
+      },
+      "description": "Describes the device that made the sighting (sensor) and contains identifying observables for the sensor.",
+      "type": "object",
+      "properties": {
+        "type": {
+          "example": "endpoint",
+          "description": "The sensor/actuator name that best fits a device.",
+          "type": "string"
+        },
+        "observables": {
+          "example": [
+            {
+              "value": "1.2.3.4",
+              "type": "ip"
+            }
+          ],
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Observable"
+          }
+        },
+        "os": {
+          "example": "string",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "observables"
+      ]
+    },
+    "Sighting": {
+      "description": "A Sighting",
+      "type": "object",
+      "properties": {
+        "description": {
+          "example": "string",
+          "description": "A description of object, which may be detailed.",
+          "type": "string"
+        },
+        "schema_version": {
+          "example": "1.3.21",
+          "description": "CTIM schema version for this entity.",
+          "type": "string"
+        },
+        "revision": {
+          "example": 10,
+          "description": "A monotonically increasing revision, incremented each time the object is changed.",
+          "type": "integer",
+          "format": "int64"
+        },
+        "relations": {
+          "example": [
+            {
+              "origin": "string",
+              "origin_uri": "string",
+              "relation": "Allocated",
+              "relation_info": {
+                "keyword": "anything"
+              },
+              "source": {
+                "value": "1.2.3.4",
+                "type": "ip"
+              },
+              "related": {
+                "value": "1.2.3.4",
+                "type": "ip"
+              }
+            }
+          ],
+          "description": "Provide any context we can about where the observable came from.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ObservedRelation"
+          }
+        },
+        "sensor_coordinates": {
+          "$ref": "#/definitions/SensorCoordinates"
+        },
+        "observables": {
+          "example": [
+            {
+              "value": "1.2.3.4",
+              "type": "ip"
+            }
+          ],
+          "description": "The object(s) of interest.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Observable"
+          }
+        },
+        "type": {
+          "example": "sighting",
+          "type": "string",
+          "enum": [
+            "sighting"
+          ]
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source": {
+          "example": "string",
+          "description": "Represents the source of the intelligence that led to the creation of the entity.",
+          "type": "string"
+        },
+        "external_ids": {
+          "example": [
+            "string"
+          ],
+          "description": "It is used to store a list of external identifiers that can be linked to the incident, providing a reliable and manageable way to correlate and group related events across multiple data sources. It is especially useful in larger organizations that rely on multiple security information and event management (SIEM) systems to detect security incidents. For instance, it can be used to track events across different network sensors, intrusion detection and prevention systems (IDPS), or log management platforms. \n The field can also be used to facilitate automation and orchestration workflows, where additional information can be shared among incident management systems. It can be used to cross-reference with other external tools such as threat intelligence feeds and vulnerability scanners.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "modified": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "targets": {
+          "example": [
+            {
+              "type": "endpoint",
+              "observables": [
+                {
+                  "value": "1.2.3.4",
+                  "type": "ip"
+                }
+              ],
+              "observed_time": {
+                "start_time": "2016-01-01T01:01:01.000Z",
+                "end_time": "2016-01-01T01:01:01.000Z"
+              },
+              "os": "string"
+            }
+          ],
+          "description": "May include one or more targets that observed the associated indicator. Targets can include network devices, host devices, or other entities that are capable of detecting indicators of compromise.\n\nCan be used to assess the scope of potential threats, helping analysts understand which devices or components of the network may be vulnerable to attack. For example, if a particular malware strain is detected on several different systems within an organization, the `targets` field may indicate which systems are affected and which may need to be isolated or patched to prevent further spread.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IdentitySpecification"
+          }
+        },
+        "short_description": {
+          "example": "string",
+          "description": "A single line, short summary of the object.",
+          "type": "string"
+        },
+        "title": {
+          "example": "string",
+          "description": "A short title for this object, used as primary display and reference value.",
+          "type": "string"
+        },
+        "resolution": {
+          "example": "detected",
+          "description": "Represents the disposition or actions taken on the associated threat intelligence.",
+          "type": "string"
+        },
+        "internal": {
+          "example": false,
+          "description": "If `true`, indicates that the sighting was reported from internal sources, such as an organization's own internal security tools or SOC.\n Internal sightings are often considered more reliable and actionable than external sightings, which are reported from external sources and may have a lower level of trustworthiness. Internal sightings can provide more context and can help identify potential threats that are unique to a particular environment or organization.\n Internal sightings can also help organizations prioritize their security response efforts by identifying threats that are specific to their environment and may not yet be widely known.",
+          "type": "boolean"
+        },
+        "external_references": {
+          "example": [
+            {
+              "source_name": "string",
+              "description": "string",
+              "url": "string",
+              "hashes": [
+                "string"
+              ],
+              "external_id": "string"
+            }
+          ],
+          "description": "Specifies a list of external references which refers to non-CTIM information.\n\nSimilar to `external_ids` field with major differences:\n\n- `external_ids` field is used to store a list of external identifiers that can be used to link entities across different data sources. These identifiers are typically standardized and well-known, such as CVE IDs, US-CERT advisories, or other industry-standard threat intelligence feeds. The `external_ids` field can be used to facilitate automation and orchestration workflows, where additional information can be shared among incident management systems. \n\n- `external_references` field, on the other hand, is used to provide a more general mechanism for linking entities to external sources of information. The `external_references` field can include references to blog posts, articles, external documents, threat intelligence reports, and other sources of information that may not have a standardized format or identifier.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ExternalReference"
+          }
+        },
+        "source_uri": {
+          "example": "string",
+          "description": "URI of the source of the intelligence that led to the creation of the entity.",
+          "type": "string"
+        },
+        "language": {
+          "example": "string",
+          "description": "The `language` field is used to specify the primary language of the affected system or the target of an attack. It can be used to provide additional context and information about the entity. The primary purpose of this field is to help analysts filter and prioritize entities based on their knowledge and expertise of different languages.\n\nFor example, if an incident involves an attack on a system in a country where a specific language is predominant, the `language` field can be used to indicate that language, which can help analysts to quickly identify and respond to incidents that may be geographically or culturally relevant. This information can be used to prioritize incidents based on their potential impact. The `language` field can also be used to help with correlation of incidents across different systems and regions, as well as to help with data analysis and reporting.",
+          "type": "string"
+        },
+        "id": {
+          "example": "string",
+          "description": "Globally unique URI identifying this object.",
+          "type": "string"
+        },
+        "count": {
+          "example": 10,
+          "description": "The number of times an indicator was observed within a certain period of time.\nFor example, if an IP address associated with known malicious activity is observed once within a period of time, it may indicate a low-level threat. However, if the same IP address is observed multiple times within a short time frame, it may indicate a more severe and persistent threat.\nIt can also be used to prioritize security alerts and indicate the urgency of a response. High counts indicate that an indicator is actively being used in a larger campaign, while low counts may indicate isolated incidents.",
+          "type": "integer",
+          "format": "int64"
+        },
+        "severity": {
+          "example": "Critical",
+          "type": "string",
+          "enum": [
+            "Medium",
+            "Info",
+            "Unknown",
+            "None",
+            "High",
+            "Critical",
+            "Low"
+          ]
+        },
+        "tlp": {
+          "example": "green",
+          "description": "TLP stands for [Traffic Light Protocol](https://www.us-cert.gov/tlp), which indicates precisely how a resource is intended to be shared, replicated, copied, etc.\n\nIt is used to indicate the sensitivity of the information contained within the message. This allows recipients to determine the appropriate handling and dissemination of the information based on their clearance level and need-to-know.\n\nFor example, an entity containing information about a critical vulnerability in a widely-used software might be marked as `red`, indicating that it should only be shared with a small group of highly trusted individuals who need to know in order to take appropriate action. On the other hand, a message containing more general information about security threats might be marked as `amber` or `green`, indicating that it can be shared more broadly within an organization.",
+          "type": "string",
+          "enum": [
+            "white",
+            "green",
+            "red",
+            "amber"
+          ]
+        },
+        "context": {
+          "$ref": "#/definitions/Context"
+        },
+        "client_id": {
+          "type": "string"
+        },
+        "timestamp": {
+          "example": "2016-01-01T01:01:01.000Z",
+          "description": "The time this object was created at, or last modified.",
+          "type": "string",
+          "format": "date-time"
+        },
+        "confidence": {
+          "example": "High",
+          "type": "string",
+          "enum": [
+            "Medium",
+            "Info",
+            "Unknown",
+            "None",
+            "High",
+            "Low"
+          ]
+        },
+        "observed_time": {
+          "$ref": "#/definitions/ObservedTime"
+        },
+        "sensor": {
+          "example": "endpoint",
+          "description": "The OpenC2 Actuator name that best fits the device that is creating this sighting (e.g. network.firewall)",
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/SightingDataTable"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "type",
+        "id",
+        "count",
+        "confidence",
+        "observed_time"
+      ]
+    },
+    "SightingDataTable": {
+      "example": {
+        "columns": [
+          {
+            "name": "string",
+            "type": "integer",
+            "description": "string",
+            "required": true,
+            "short_description": "string"
+          }
+        ],
+        "rows": [
+          [
+            "anything"
+          ]
+        ],
+        "row_count": 10
+      },
+      "description": "An embedded data table for the Sighting.",
+      "type": "object",
+      "properties": {
+        "columns": {
+          "example": [
+            {
+              "name": "string",
+              "type": "integer",
+              "description": "string",
+              "required": true,
+              "short_description": "string"
+            }
+          ],
+          "description": "an ordered list of column definitions",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ColumnDefinition"
+          }
+        },
+        "rows": {
+          "example": [
+            [
+              "anything"
+            ]
+          ],
+          "description": "an ordered list of rows",
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {}
+          }
+        },
+        "row_count": {
+          "example": 10,
+          "description": "The number of rows in the data table.",
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "columns",
+        "rows"
+      ]
+    },
+    "SightingRelationsRelationInfo": {
+      "example": {
+        "keyword": "anything"
+      },
+      "type": "object",
+      "additionalProperties": {
+        "example": "anything"
+      }
+    },
+    "Traffic": {
+      "example": {
+        "destination_host_name": "string",
+        "protocol": 10,
+        "source_ip": "string",
+        "destination_subnet": "string",
+        "destination_ip": "string",
+        "source_subnet": "string",
+        "destination_port": 10,
+        "direction": "incoming",
+        "source_port": 10
+      },
+      "type": "object",
+      "properties": {
+        "destination_host_name": {
+          "example": "string",
+          "type": "string"
+        },
+        "protocol": {
+          "example": 10,
+          "description": "The IP [protocol id](https://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml)",
+          "type": "integer",
+          "format": "int64"
+        },
+        "source_ip": {
+          "example": "string",
+          "type": "string"
+        },
+        "destination_subnet": {
+          "example": "string",
+          "type": "string"
+        },
+        "destination_ip": {
+          "example": "string",
+          "type": "string"
+        },
+        "source_subnet": {
+          "example": "string",
+          "type": "string"
+        },
+        "destination_port": {
+          "example": 10,
+          "type": "integer",
+          "format": "int64"
+        },
+        "direction": {
+          "example": "incoming",
+          "type": "string",
+          "enum": [
+            "incoming",
+            "outgoing"
+          ]
+        },
+        "source_port": {
+          "example": 10,
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "protocol",
+        "source_ip",
+        "destination_ip",
+        "destination_port",
+        "direction",
+        "source_port"
+      ]
+    }
+  },
+  "security": [
+    {
+      "iroh": []
+    },
+    {
+      "AuthorizationHeader": []
+    },
+    {
+      "oauth2": [
+        "telemetry",
+        "integration",
+        "private-intel",
+        "admin",
+        "cognitive",
+        "profile",
+        "inspect",
+        "asset",
+        "event",
+        "feedback",
+        "sse",
+        "registry",
+        "users",
+        "investigation",
+        "invite",
+        "casebook",
+        "orbital",
+        "enrich",
+        "oauth",
+        "vault",
+        "response",
+        "notification",
+        "global-intel:read",
+        "webhook",
+        "ao"
+      ]
+    }
+  ],
+  "produces": [
+    "application/json",
+    "application/x-yaml",
+    "application/edn",
+    "application/transit+json",
+    "application/transit+msgpack"
+  ],
+  "paths": {
+    "/iroh/iroh-response/respond/observables": {
+      "post": {
+        "x-no-doc": false,
+        "tags": [
+          "Response"
+        ],
+        "description": "[required scopes](/iroh/doc/iroh-auth/#scopes): `response/observables:read`\n\n",
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/EnvelopedActions"
+            },
+            "description": ""
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "Observable",
+            "description": "A simple, atomic value which has a consistent identity, and is stable enough to be attributed an intent or nature.  This is the classic 'indicator' which might appear in a data feed of bad IPs, or bad Domains.  These do not exist as objects within the CTIA storage model, so you never create an observable.",
+            "required": true,
+            "schema": {
+              "description": "a list of observables",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Observable"
+              }
+            }
+          },
+          {
+            "in": "query",
+            "name": "params",
+            "description": "",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": true
+          }
+        ],
+        "summary": "List available actions for an observable"
+      }
+    },
+    "/iroh/iroh-response/respond/sighting": {
+      "post": {
+        "x-no-doc": false,
+        "tags": [
+          "Response"
+        ],
+        "description": "[required scopes](/iroh/doc/iroh-auth/#scopes): `response/sighting:read`\n\n",
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/EnvelopedActions"
+            },
+            "description": ""
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "Sighting",
+            "description": "A Sighting",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Sighting"
+            }
+          },
+          {
+            "in": "query",
+            "name": "params",
+            "description": "",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": true
+          }
+        ],
+        "summary": "List available actions for a sighting"
+      }
+    },
+    "/iroh/iroh-response/respond/trigger/{module-instance-id}/{action-id}": {
+      "post": {
+        "x-no-doc": false,
+        "tags": [
+          "Response"
+        ],
+        "description": "[required scopes](/iroh/doc/iroh-auth/#scopes): `response/trigger:write`\n\n",
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/EnvelopedActionResult"
+            },
+            "description": ""
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "module-instance-id",
+            "description": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "action-id",
+            "description": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "observable_type",
+            "description": "Observable type names",
+            "required": false,
+            "example": "acudid",
+            "type": "string",
+            "enum": [
+              "file_path",
+              "mac_address",
+              "trend_micro_id",
+              "cybereason_id",
+              "process_args",
+              "s1_agent_id",
+              "device",
+              "hostname",
+              "certificate_common_name",
+              "serial_number",
+              "meraki_network_id",
+              "url",
+              "certificate_serial",
+              "meraki_org_id",
+              "cisco_cm_id",
+              "registry_key",
+              "process_path",
+              "darktrace_id",
+              "process_username",
+              "cortex_agent_id",
+              "orbital_node_id",
+              "process_uid",
+              "ngfw_name",
+              "user",
+              "certificate_issuer",
+              "ipv6",
+              "email",
+              "cisco_uc_id",
+              "cvm_id",
+              "sha256",
+              "crowdstrike_id",
+              "google_cloud_id",
+              "acudid",
+              "sha1",
+              "registry_name",
+              "md5",
+              "service_now_id",
+              "ip",
+              "domain",
+              "email_subject",
+              "imei",
+              "ngfw_id",
+              "amp_computer_guid",
+              "ms_machine_id",
+              "secure_access_id",
+              "mutex",
+              "processor_id",
+              "swc_device_id",
+              "registry_path",
+              "odns_identity",
+              "odns_identity_label",
+              "cisco_mid",
+              "process_name",
+              "pki_serial",
+              "meraki_node_sn",
+              "email_messageid",
+              "imsi",
+              "user_agent",
+              "process_hash",
+              "file_name"
+            ]
+          },
+          {
+            "in": "query",
+            "name": "observable_value",
+            "description": "",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "summary": "Trigger an Action"
+      }
+    }
+  },
+  "consumes": [
+    "application/json",
+    "application/x-yaml",
+    "application/edn",
+    "application/transit+json",
+    "application/transit+msgpack"
+  ],
+  "host": "visibility.int.iroh.site",
+  "info": {
+    "title": "IROH-INT Response",
+    "version": "1.0.107",
+    "license": {
+      "name": "All Rights Reserved",
+      "url": "https://www.cisco.com"
+    },
+    "contact": {
+      "name": "Cisco Security Business Group -- Advanced Threat",
+      "email": "cisco-intel-api-support@cisco.com"
+    },
+    "description": "Manage Response from modules"
+  },
+  "swagger": "2.0",
+  "basePath": "/"
+}
