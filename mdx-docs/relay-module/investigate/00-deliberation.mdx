@@ -4,4 +4,25 @@ sidebar_position: 1
 
 # Deliberation Development
 
-Please reach out to the XDR PM about how this integraiton can be created.
+To make a Deliberation integration, you can either continue to use the **Generic Serverless Relay** or update your Module Type to support the Deliberate endpoint.
+
+## Update Module Type JSON
+
+Go to the Module Maker and click on the **Open JSON from File** option on the top left of the page. Select the JSON file for the Wazuh module and open it.
+
+Once it is opened, it should look similar to the below:
+![json](./img/default-json.png)
+
+Check the three tiles options so we make sure those stay there from the previous section and give them a description.
+
+Now check the _deliberate/observables_ option and give it a description.
+![updated json](./img/updated-json.png)
+
+Now save the JSON and patch our module using the IROH Swagger docs.
+
+You should get a response with the updated API endpoints and Deliberate should be listed in it.
+![updated response](./img/updated-response.png)
+
+## Create Deliberate API Endpoint
+
+In your IDE, create a new folder in the **routes** folder called **deliberate**. Then create a new file called **deliberateRoute.js**
