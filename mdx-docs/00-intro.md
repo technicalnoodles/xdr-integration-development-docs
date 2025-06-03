@@ -53,45 +53,6 @@ There are multiple tile types and we will go over those in the development secti
   </TabItem>
 </Tabs> -->
 
-## Incidents
-
-![incidents image](../static/img/intro/xdr-incidents.png)
-
-#### Overview
-
-Incidents in XDR are the culmination of data from all the products integrated into XDR that provide data to the Data Analytics Platform (DAP). The DAP takes in data from these products, analyzes it for statistics, deviations, threat patterns, and more. Then the analysis is able to create an incident with supporting eveidence from the integrated products.
-
-#### Who Should Contribute
-
-If your products can contribute telemetry or security detections, then an integration here would be a great value to your customers.
-
-#### Integration Types
-
-<!-- <details>
-
-<summary>Correlation</summary>
-
-Incident correlation inntegrates directly into our Data Analytics Platform and can only be developed by Cisco. To make this integration with us, we would need your cooperation and readiness to provide technical assistance during the development process. However, injecting incidents into XDR does not require Cisco to develop an integraiton.
-
-</details>
-
-<details>
-
-<summary>Injection</summary>
-
-Injected incidents are incidents that are added to the XDR incidents queue via API. This bypasses the analytics you get get with the DAP but is a way to centralize incidents and create investigations from them.
-
-</details> -->
-
-<Tabs>
-  <TabItem value="correlation" label="Correlation" default>
-    Incident correlation integrates directly into our Data Analytics Platform and can only be developed by Cisco. To make this integration with us, we would need your cooperation and readiness to provide technical assistance during the development process. However, injecting incidents into XDR does not require Cisco to develop an integraiton.
-  </TabItem>
-  <TabItem value="injection" label="Injection">
-    Injected incidents are incidents that are added to the XDR incidents queue via API. This bypasses the analytics you get get with the DAP but is a way to centralize incidents and create investigations from them.
-  </TabItem>
-</Tabs>
-
 ## Investigate (Enrichment)
 
 ![investigation image](../static/img/intro/xdr-investigation.png)
@@ -137,6 +98,45 @@ If your product is able to provide at least of the below, then it is a good cand
   </TabItem>
     <TabItem value="response" label="Response">
     Response actions are options you can provide to do "something" with an observable. This something can be to quarantine an observable, block it, or anything else your product is able to provide as an action on that observable.
+  </TabItem>
+</Tabs>
+
+## Incidents
+
+![incidents image](../static/img/intro/xdr-incidents.png)
+
+#### Overview
+
+Incidents in XDR are the culmination of data from all the products integrated into XDR that provide data to the Data Analytics Platform (DAP). The DAP takes in data from these products, analyzes it for statistics, deviations, threat patterns, and more. Then the analysis is able to create an incident with supporting eveidence from the integrated products.
+
+#### Who Should Contribute
+
+If your products can contribute telemetry or security detections, then an integration here would be a great value to your customers.
+
+#### Integration Types
+
+<!-- <details>
+
+<summary>Correlation</summary>
+
+Incident correlation inntegrates directly into our Data Analytics Platform and can only be developed by Cisco. To make this integration with us, we would need your cooperation and readiness to provide technical assistance during the development process. However, injecting incidents into XDR does not require Cisco to develop an integraiton.
+
+</details>
+
+<details>
+
+<summary>Injection</summary>
+
+Injected incidents are incidents that are added to the XDR incidents queue via API. This bypasses the analytics you get get with the DAP but is a way to centralize incidents and create investigations from them.
+
+</details> -->
+
+<Tabs>
+  <TabItem value="correlation" label="Correlation" default>
+    Incident correlation integrates directly into our Data Analytics Platform and can only be developed by Cisco. To make this integration with us, we would need your cooperation and readiness to provide technical assistance during the development process. However, injecting incidents into XDR does not require Cisco to develop an integraiton.
+  </TabItem>
+  <TabItem value="injection" label="Injection">
+    Injected incidents are incidents that are added to the XDR incidents queue via API. This bypasses the analytics you get get with the DAP but is a way to centralize incidents and create investigations from them.
   </TabItem>
 </Tabs>
 
